@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Birds</title>
+  </head>
+  <body>
+    <h1>All Birds</h1>
+    <div>
+      <a href="/birds/new">Post an Entry</a>
+    </div>  
+
+    <p><% birds %> </p>
+
+    <ul>
+      <% for (let bird of birds) { %>
+        <li> <a href="/birds/<%= bird._id %>"> <%= bird.species %> </a> </li>
+      <% } %>
+    </ul>
+  </body>
+</html>

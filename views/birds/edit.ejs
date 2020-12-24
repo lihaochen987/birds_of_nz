@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Edit Entry</h1>
+    <form action="/birds/<%= bird._id %>?_method=PUT" method="POST">
+      <div>
+        <label for="species">Species</label>
+        <input
+          type="text"
+          id="species"
+          name="bird[species]"
+          value="<%= bird.species %>"
+        />
+      </div>
+      <div>
+        <label for="location">Location</label>
+        <input
+          type="text"
+          id="location"
+          name="bird[location]"
+          value="<%= bird.location %>"
+        />
+      </div>
+      <button>Update Post</button>
+    </form>
+    <a href="/birds/<%= bird._id %>">Back to Birds</a>
+  </body>
+</html>

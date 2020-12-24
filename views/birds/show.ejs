@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show</title>
+  </head>
+  <body>
+    <h1><%= bird.species %></h1>
+    <h2><%= bird.location %></h2>
+    <h3><%= bird.description %> </h3>
+    <p><a href="/birds/<%= bird._id  %>/edit">Edit</a></p>
+    <p><form action="/birds/<%= bird._id  %>?_method=DELETE" method = "POST">
+        <button>Delete</button>
+    </form></p>
+    <footer>
+        <a href="/birds">All Birds</a>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a new entry</title>
+</head>
+<body>
+    <form action="/birds" method="POST">
+        <div>
+            <label fspecies">Species</label>
+            <input type="text" id="species" name="bird[species]">
+        </div>
+        <div>
+            <label for="location">Location</label>
+            <input type="text" id="location" name="bird[location]">
+        </div>
+        <button>Add A Entry</button>
+    </form>
+    <a href="/birds">All Birds</a>
+</body>
+</html>
