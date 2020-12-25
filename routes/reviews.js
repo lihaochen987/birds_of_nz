@@ -30,6 +30,7 @@ router.post(
     bird.reviews.push(review);
     await review.save();
     await bird.save();
+    req.flash('success', 'Created new review!');
     res.redirect(`/birds/${bird._id}`);
   })
 );
@@ -40,6 +41,7 @@ router.delete(
     const { id, reviewId } = req.params;
     await Bird.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
+    req.flash('success', 'Successfully deleted a review!');
     res.redirect(`/birds/${id}`);
   })
 );

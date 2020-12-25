@@ -36,6 +36,7 @@ router.post(
     if (!req.body.bird) throw new ExpressError("Invalid Post Data", 400);
     const bird = new Bird(req.body.bird);
     await bird.save();
+    req.flash("success", "Successfully made a new post!");
     res.redirect(`birds/${bird._id}`);
   })
 );
@@ -44,6 +45,10 @@ router.get(
   "/:id",
   catchAsync(async (req, res) => {
     const bird = await Bird.findById(req.params.id).populate("reviews");
+    if (!bird) {
+      req.flash("error", "Cannot find that post");
+      return res.redirect("/birds");
+    }
     res.render("birds/show", { bird });
   })
 );
@@ -52,6 +57,10 @@ router.get(
   "/:id/edit",
   catchAsync(async (req, res) => {
     const bird = await Bird.findById(req.params.id);
+    if (!bird) {
+      req.flash("error", "Cannot find that post!");
+      return res.redirect("/birdss");
+    }
     res.render("birds/edit", { bird });
   })
 );
@@ -62,6 +71,7 @@ router.put(
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const bird = await Bird.findByIdAndUpdate(id, { ...req.body.bird });
+    req.flash('success', 'Successfully updated a post');
     res.redirect(`${bird._id}`);
   })
 );
@@ -71,6 +81,7 @@ router.delete(
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Bird.findByIdAndDelete(id);
+    req.flash('success', 'Successfully deleted a post');
     res.redirect("/birds");
   })
 );
