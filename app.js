@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const { birdSchema } = require('./schema.js');
 const Bird = require("./models/bird");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
@@ -30,15 +31,16 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
-const validateBird = (req, rest, next) => {
+// Not entirely sure what this does
+const validatePost = (req, res, next) => {
   const { error } = birdSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(msg, 400);
+      const msg = error.details.map(el => el.message).join(',')
+      throw new ExpressError(msg, 400)
   } else {
-    next();
+      next();
   }
-};
+}
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -58,6 +60,7 @@ app.get("/birds/new", (req, res) => {
 
 app.post(
   "/birds",
+  validatePost,
   catchAsync(async (req, res) => {
     if (!req.body.bird) throw new ExpressError("Invalid Post Data", 400);
     const bird = new Bird(req.body.bird);
@@ -84,6 +87,7 @@ app.get(
 
 app.put(
   "/birds/:id",
+  validatePost,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const bird = await Bird.findByIdAndUpdate(id, { ...req.body.bird });
