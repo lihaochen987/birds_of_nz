@@ -1,33 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Edit Entry</h1>
-    <form action="/birds/<%= bird._id %>?_method=PUT" method="POST">
-      <div>
-        <label for="species">Species</label>
+<% layout('layouts/boilerplate')%>
+<div class="row">
+  <h1 class="text-center">Edit Bird</h1>
+  <div class="col-6 offset-3">
+    <form action="/birds/<%=bird._id%>?_method=PUT" method="POST">
+      <div class="mb-3">
+        <label class="form-label" for="species">Species</label>
         <input
+          class="form-control"
           type="text"
           id="species"
           name="bird[species]"
-          value="<%= bird.species %>"
+          value="<%=bird.species %>"
         />
       </div>
-      <div>
-        <label for="location">Location</label>
+
+      <div class="mb-3">
+        <label class="form-label" for="location">Location</label>
         <input
+          class="form-control"
           type="text"
           id="location"
           name="bird[location]"
-          value="<%= bird.location %>"
+          value="<%=bird.location %>"
         />
       </div>
-      <button>Update Post</button>
+
+      <div class="mb-3">
+        <label class="form-label" for="image">Image Url</label>
+        <input
+          class="form-control"
+          type="text"
+          id="image"
+          name="bird[image]"
+          value="<%=bird.image %>"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea
+          class="form-control"
+          type="text"
+          id="description"
+          name="bird[description]"
+        >
+        <%= bird.description%></textarea
+        >
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-info">Update Entry</button>
+      </div>
     </form>
-    <a href="/birds/<%= bird._id %>">Back to Birds</a>
-  </body>
-</html>
+    <a href="/birds/<%= bird._id%>">Back To Birds</a>
+  </div>
+</div>

@@ -1,20 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Show</title>
-  </head>
-  <body>
-    <h1><%= bird.species %></h1>
-    <h2><%= bird.location %></h2>
-    <h3><%= bird.description %> </h3>
-    <p><a href="/birds/<%= bird._id  %>/edit">Edit</a></p>
-    <p><form action="/birds/<%= bird._id  %>?_method=DELETE" method = "POST">
-        <button>Delete</button>
-    </form></p>
-    <footer>
-        <a href="/birds">All Birds</a>
-    </footer>
-  </body>
-</html>
+<% layout('layouts/boilerplate')%>
+
+<section class="container-fluid">
+  <div class="row align-items-center">
+    <div class="col-lg-4 px-0 text-center d-none d-lg-block">
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title"><%= bird.species %></h5>
+          <h6 class="card-subtitle mb-2 text-muted">Username Placeholder</h6>
+          <p class="card-text"><%= bird.description %></p>
+          <p class="card-subtitle mb-2 text-muted"><%= bird.location %></p>
+          <a
+            class="card-link btn btn-info"
+            href="/birds/<%=bird._id%>/edit"
+            >Edit</a
+          >
+          <form
+            class="d-inline"
+            action="/birds/<%=bird._id%>?_method=DELETE"
+            method="POST"
+          >
+            <button class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8 px-0">
+      <div
+        id="carouselExampleControls"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="<%= bird.image %> "
+              class="d-block w-100"
+              alt="Image of <%= bird.species %> "
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="<%= bird.image %> "
+              class="d-block w-100"
+              alt="Image of <%= bird.species %> "
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="<%= bird.image %> "
+              class="d-block w-100"
+              alt="Image of <%= bird.species %> "
+            />
+          </div>
+        </div>
+        <a
+          class="carousel-control-prev"
+          href="#carouselExampleControls"
+          role="button"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </a>
+        <a
+          class="carousel-control-next"
+          href="#carouselExampleControls"
+          role="button"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

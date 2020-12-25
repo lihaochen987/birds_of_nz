@@ -1,22 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>All Birds</title>
-  </head>
-  <body>
-    <h1>All Birds</h1>
-    <div>
-      <a href="/birds/new">Post an Entry</a>
-    </div>  
+<% layout('layouts/boilerplate')%>
 
-    <p><% birds %> </p>
+<h1>All Birds</h1>
+<div>
+  <a href="/birds/new">Post an Entry</a>
+</div>
 
-    <ul>
-      <% for (let bird of birds) { %>
-        <li> <a href="/birds/<%= bird._id %>"> <%= bird.species %> </a> </li>
-      <% } %>
-    </ul>
-  </body>
-</html>
+<p><% birds %></p>
+
+<div class="row">
+  <% for (let bird of birds) { %>
+  <div class="col-lg-4 flex-wrap align-content-start">
+    <div class="card mb-5 border-white" style="width: 20rem">
+      <a href="/birds/<%=bird._id%>">
+        <img
+          src="<%= bird.image %> "
+          class="card-img-top rounded-circle"
+          alt="image of <%= bird.species %> "
+        />
+      </a>
+
+      <div class="card-body">
+        <h4 class="card-title text-center"><%= bird.species %></h5>
+        <h5 class = "card-subtitle mb-2 text-muted text-center"><%= bird.location %> </h4>
+        <p class="card-text text-center">
+          <%= bird.description  %> 
+        </p>
+      </div>
+    </div>
+  </div>
+  <% } %>
+</div>
