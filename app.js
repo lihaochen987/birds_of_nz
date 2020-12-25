@@ -3,10 +3,11 @@ const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const { birdSchema } = require('./schema.js');
+const { birdSchema, reviewSchema } = require("./schema.js");
 const Bird = require("./models/bird");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
+const Review = require("./models/review");
 
 mongoose.connect("mongodb://localhost:27017/birds-of-nz", {
   useNewUrlParser: true,
@@ -31,16 +32,26 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
-// Not entirely sure what this does
+// Not entirely sure what both validates do
 const validatePost = (req, res, next) => {
   const { error } = birdSchema.validate(req.body);
   if (error) {
-      const msg = error.details.map(el => el.message).join(',')
-      throw new ExpressError(msg, 400)
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
   } else {
-      next();
+    next();
   }
-}
+};
+
+const validateReview = (req, res, next) => {
+  const { error } = reviewSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
+};
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -72,7 +83,7 @@ app.post(
 app.get(
   "/birds/:id",
   catchAsync(async (req, res) => {
-    const bird = await Bird.findById(req.params.id);
+    const bird = await Bird.findById(req.params.id).populate('reviews');
     res.render("birds/show", { bird });
   })
 );
@@ -104,16 +115,32 @@ app.delete(
   })
 );
 
+app.post('/birds/:id/reviews', validateReview, catchAsync(async (req, res) => {
+  const bird = await Bird.findById(req.params.id);
+  const review = new Review(req.body.review);
+  bird.reviews.push(review);
+  await review.save();
+  await bird.save();
+  res.redirect(`/birds/${bird._id}`);
+}))
+
+app.delete('/birds/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+  const { id, reviewId } = req.params;
+  await Bird.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+  await Review.findByIdAndDelete(reviewId);
+  res.redirect(`/birds/${id}`);
+}))
+
 // Read up more on error handling stuff
-app.all('*', (req, res, next) => {
-  next(new ExpressError('Page Not Found', 404))
-})
+app.all("*", (req, res, next) => {
+  next(new ExpressError("Page Not Found", 404));
+});
 
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
-  if (!err.message) err.message = 'Oh No, Something Went Wrong!'
-  res.status(statusCode).render('error', { err })
-})
+  if (!err.message) err.message = "Oh No, Something Went Wrong!";
+  res.status(statusCode).render("error", { err });
+});
 
 app.listen(5000, () => {
   console.log("Listening on port 5000");
