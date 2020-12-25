@@ -10,9 +10,9 @@ const { reviewSchema } = require("../schemas.js");
 const ExpressError = require("../utils/ExpressError");
 const catchAsync = require("../utils/catchAsync");
 
-// Not 100% sure what this does
+// ONLY USE WHEN WE'RE CREATING SOMETHING (HENCE CHECKING OUR MODEL)
 const validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
+  const { error } = reviewSchema.validate(req.body); //Check for an error as part of the object we get back
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);
@@ -30,7 +30,7 @@ router.post(
     bird.reviews.push(review);
     await review.save();
     await bird.save();
-    req.flash('success', 'Created new review!');
+    req.flash("success", "Created new review!");
     res.redirect(`/birds/${bird._id}`);
   })
 );
@@ -41,7 +41,7 @@ router.delete(
     const { id, reviewId } = req.params;
     await Bird.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
-    req.flash('success', 'Successfully deleted a review!');
+    req.flash("success", "Successfully deleted a review!");
     res.redirect(`/birds/${id}`);
   })
 );
