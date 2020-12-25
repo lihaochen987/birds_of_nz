@@ -2,7 +2,7 @@
 <div class="row">
   <h1 class="text-center">The New Bird On The Block</h1>
   <div class="col-6 offset-3">
-    <form action="/birds" method="POST">
+    <form action="/birds" method="POST" novalidate class="validated-form">
       <div class="mb-3">
         <label class="form-label" for="species">Species</label>
         <input
@@ -10,7 +10,9 @@
           type="text"
           id="species"
           name="bird[species]"
+          required
         />
+        <div class="valid-feedback">Looks Good!</div>
       </div>
 
       <div class="mb-3">
@@ -20,12 +22,21 @@
           type="text"
           id="location"
           name="bird[location]"
+          required
         />
+        <div class="valid-feedback">Looks Good!</div>
       </div>
 
       <div class="mb-3">
         <label class="form-label" for="image">Image Url</label>
-        <input class="form-control" type="text" id="image" name="bird[image]" />
+        <input
+          class="form-control"
+          type="text"
+          id="image"
+          name="bird[image]"
+          required
+        />
+        <div class="valid-feedback">Looks Good!</div>
       </div>
 
       <div class="mb-3">
@@ -35,8 +46,10 @@
           type="text"
           id="description"
           name="bird[description]"
+          required
         ></textarea>
       </div>
+      <div class="valid-feedback">Looks Good!</div>
       <div class="mb-3">
         <button class="btn btn-info">Release Bird</button>
       </div>
