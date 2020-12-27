@@ -19,18 +19,17 @@ const validatePost = (req, res, next) => {
   }
 };
 
-router.get("/", catchAsync(birds.index));
+router.route("/")
+.get(catchAsync(birds.index))
+.post(isLoggedIn, validatePost, catchAsync(birds.createPost));
+
+router.route("/:id")
+.get(isLoggedIn, catchAsync(birds.showPost))
+.put(isLoggedIn, validatePost, catchAsync(birds.updatePost))
+.delete(isLoggedIn, catchAsync(birds.deletePost));
 
 router.get("/new", isLoggedIn, birds.renderNewForm);
 
-router.post("/", isLoggedIn, validatePost, catchAsync(birds.createPost));
-
-router.get("/:id", isLoggedIn, catchAsync(birds.showPost));
-
 router.get("/:id/edit", isLoggedIn, catchAsync(birds.renderEditForm));
-
-router.put("/:id", isLoggedIn, validatePost, catchAsync(birds.updatePost));
-
-router.delete("/:id", isLoggedIn, catchAsync(birds.deletePost));
 
 module.exports = router;
