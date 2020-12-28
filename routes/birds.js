@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const { birdSchema } = require("../schemas.js");
+const { isLoggedIn } = require("../middleware");
 
 const ExpressError = require("../utils/ExpressError");
 const Bird = require("../models/bird");
@@ -25,12 +26,13 @@ router.get(
   })
 );
 
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("birds/new");
 });
 
 router.post(
   "/",
+  isLoggedIn,
   validatePost,
   catchAsync(async (req, res) => {
     if (!req.body.bird) throw new ExpressError("Invalid Post Data", 400);
@@ -43,6 +45,7 @@ router.post(
 
 router.get(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const bird = await Bird.findById(req.params.id).populate("reviews");
     if (!bird) {
@@ -67,21 +70,23 @@ router.get(
 
 router.put(
   "/:id",
+  isLoggedIn,
   validatePost,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const bird = await Bird.findByIdAndUpdate(id, { ...req.body.bird });
-    req.flash('success', 'Successfully updated a post');
+    req.flash("success", "Successfully updated a post");
     res.redirect(`${bird._id}`);
   })
 );
 
 router.delete(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Bird.findByIdAndDelete(id);
-    req.flash('success', 'Successfully deleted a post');
+    req.flash("success", "Successfully deleted a post");
     res.redirect("/birds");
   })
 );

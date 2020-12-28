@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Review = require("./review");
 const Schema = mongoose.Schema;
+const { isLoggedIn } = require("../middleware");
 
 const BirdSchema = new Schema({
   species: String,
