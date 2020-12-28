@@ -6,9 +6,13 @@
       <div class="card" style="width: 18rem">
         <div class="card-body">
           <h5 class="card-title"><%= bird.species %></h5>
-          <h6 class="card-subtitle mb-2 text-muted">Username Placeholder</h6>
+          <h6 class="card-subtitle mb-2 text-muted">
+            Submitted By <%= bird.author.username %>
+          </h6>
           <p class="card-text"><%= bird.description %></p>
           <p class="card-subtitle mb-2 text-muted"><%= bird.location %></p>
+
+          <% if (currentUser && bird.author.equals(currentUser._id)) { %>
           <a class="card-link btn btn-info" href="/birds/<%=bird._id%>/edit"
             >Edit</a
           >
@@ -19,6 +23,7 @@
           >
             <button class="btn btn-danger">Delete</button>
           </form>
+          <% } %>
         </div>
       </div>
     </div>
@@ -75,6 +80,7 @@
   </div>
 
   <div class="row align-items-center">
+    <% if (currentUser) {%>
     <div class="px-0 text-center d-lg-block">
       <h2>Leave a Review</h2>
       <form
@@ -108,17 +114,24 @@
         </div>
         <button class="btn btn-success">Submit</button>
       </form>
+      <% } %> 
+      
       <% for(let review of bird.reviews) { %>
       <div class="card mb-3">
         <div class="card-body">
           <h5 class="card-title">Rating: <%= review.rating %></h5>
-          <p class="card-text">Review: <%= review.body %></p>
+          <h6 class="card-subtitle mb-2 text-muted">
+            By <%= review.author.username%>
+          </h6>
+          <p class="card-text"><%= review.body %></p>
+          <% if( currentUser && review.author.equals(currentUser._id)) {%>
           <form
             action="/birds/<%=bird._id%>/reviews/<%=review._id%>?_method=DELETE"
             method="POST"
           >
             <button class="btn btn-sm btn-danger">Delete</button>
           </form>
+          <% } %>
         </div>
       </div>
       <% } %>

@@ -2,21 +2,10 @@ const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const { birdSchema } = require("../schemas.js");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, isAuthor, validatePost } = require("../middleware");
 
 const ExpressError = require("../utils/ExpressError");
 const Bird = require("../models/bird");
-
-// Not entirely sure what this does
-const validatePost = (req, res, next) => {
-  const { error } = birdSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-};
 
 router.get(
   "/",
@@ -35,19 +24,27 @@ router.post(
   isLoggedIn,
   validatePost,
   catchAsync(async (req, res) => {
-    if (!req.body.bird) throw new ExpressError("Invalid Post Data", 400);
     const bird = new Bird(req.body.bird);
+    bird.author = req.user._id;
     await bird.save();
     req.flash("success", "Successfully made a new post!");
     res.redirect(`birds/${bird._id}`);
   })
 );
 
+// Understand this more!
 router.get(
   "/:id",
   isLoggedIn,
   catchAsync(async (req, res) => {
-    const bird = await Bird.findById(req.params.id).populate("reviews");
+    const bird = await Bird.findById(req.params.id)
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "author",
+        },
+      })
+      .populate("author");
     if (!bird) {
       req.flash("error", "Cannot find that post");
       return res.redirect("/birds");
@@ -58,11 +55,13 @@ router.get(
 
 router.get(
   "/:id/edit",
+  isAuthor,
   catchAsync(async (req, res) => {
-    const bird = await Bird.findById(req.params.id);
+    const { id } = req.params;
+    const bird = await Bird.findById(id);
     if (!bird) {
       req.flash("error", "Cannot find that post!");
-      return res.redirect("/birdss");
+      return res.redirect("/birds");
     }
     res.render("birds/edit", { bird });
   })
@@ -71,6 +70,7 @@ router.get(
 router.put(
   "/:id",
   isLoggedIn,
+  isAuthor,
   validatePost,
   catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -83,6 +83,7 @@ router.put(
 router.delete(
   "/:id",
   isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Bird.findByIdAndDelete(id);

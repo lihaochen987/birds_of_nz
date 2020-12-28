@@ -22,6 +22,7 @@ const seedDB = async () => {
       location: `${birdSeed[i].location}, New Zealand`,
       species: `${birdSeed[i].species}`,
       description: `${birdSeed[i].description}`,
+      author: "5fe5a377690cc3358029c82b",
       image:
         "https://images.unsplash.com/photo-1599367446256-77d27677e52f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
     });
