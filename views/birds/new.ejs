@@ -2,7 +2,13 @@
 <div class="row">
   <h1 class="text-center">The New Bird On The Block</h1>
   <div class="col-6 offset-3">
-    <form action="/birds" method="POST" novalidate class="validated-form">
+    <form
+      action="/birds"
+      method="POST"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+    >
       <div class="mb-3">
         <label class="form-label" for="species">Species</label>
         <input
@@ -27,17 +33,7 @@
         <div class="valid-feedback">Looks Good!</div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label" for="image">Image Url</label>
-        <input
-          class="form-control"
-          type="text"
-          id="image"
-          name="bird[image]"
-          required
-        />
-        <div class="valid-feedback">Looks Good!</div>
-      </div>
+      <input type="file" name="image" id="" multiple />
 
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>

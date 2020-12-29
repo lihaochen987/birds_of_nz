@@ -4,6 +4,9 @@ const catchAsync = require("../utils/catchAsync");
 const { birdSchema } = require("../schemas.js");
 const { isLoggedIn, isAuthor, validatePost } = require("../middleware");
 const birds = require("../controllers/birds");
+const multer = require("multer");
+const { storage } = require("../cloudinary");
+const upload = multer({ storage });
 
 const ExpressError = require("../utils/ExpressError");
 const Bird = require("../models/bird");
@@ -11,7 +14,12 @@ const Bird = require("../models/bird");
 router
   .route("/")
   .get(catchAsync(birds.index))
-  .post(isLoggedIn, validatePost, catchAsync(birds.createPost));
+  .post(
+    isLoggedIn,
+    upload.array("image"),
+    validatePost,
+    catchAsync(birds.createPost)
+  );
 
 router.get("/new", isLoggedIn, birds.renderNewForm);
 

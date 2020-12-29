@@ -1,4 +1,4 @@
-const Bird = require('../models/bird');
+const Bird = require("../models/bird");
 
 module.exports.index = async (req, res) => {
   const birds = await Bird.find({});
@@ -11,8 +11,10 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.createPost = async (req, res) => {
   const bird = new Bird(req.body.bird);
+  bird.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   bird.author = req.user._id;
   await bird.save();
+  console.log(bird);
   req.flash("success", "Successfully made a new post!");
   res.redirect(`birds/${bird._id}`);
 };
