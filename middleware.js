@@ -1,7 +1,7 @@
-const { birdSchema, reviewSchema } = require("./schemas.js");
+const { birdSchema, commentSchema } = require("./schemas.js");
 const ExpressError = require("./utils/ExpressError");
 const Bird = require("./models/bird");
-const Review = require("./models/review");
+const Comment = require("./models/comment");
 
 // Not 100% sure what this does
 module.exports.isLoggedIn = (req, res, next) => {
@@ -33,19 +33,19 @@ module.exports.isAuthor = async (req, res, next) => {
   next();
 };
 
-module.exports.isReviewAuthor = async (req, res, next) => {
-  const { id, reviewId } = req.params;
-  const review = await Review.findById(reviewId);
+module.exports.isCommentAuthor = async (req, res, next) => {
+  const { id, commentId } = req.params;
+  const comment = await Comment.findById(commentId);
   console.log(req.user._id);
-  if (!review.author.equals(req.user._id)) {
+  if (!comment.author.equals(req.user._id)) {
     req.flash("error", "You do not have permission to do that!");
     return res.redirect(`/birds/${id}`);
   }
   next();
 };
 
-module.exports.validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
+module.exports.validateComment = (req, res, next) => {
+  const { error } = commentSchema.validate(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);

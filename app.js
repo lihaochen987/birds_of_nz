@@ -6,18 +6,18 @@ const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const { birdSchema, reviewSchema } = require("./schemas.js");
+const { birdSchema, commentSchema } = require("./schemas.js");
 const Bird = require("./models/bird");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
-const Review = require("./models/review");
+const Comment = require("./models/comment");
 const session = require("express-session");
 const flash = require("connect-flash");
 const morgan = require('morgan');
 
 const userRoutes = require('./routes/users');
 const birdRoutes = require('./routes/birds');
-const reviewRoutes = require('./routes/reviews');
+const commentRoutes = require('./routes/comments');
 
 mongoose.connect("mongodb://localhost:27017/birds-of-nz", {
   useNewUrlParser: true,
@@ -72,7 +72,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/birds", birdRoutes);
-app.use("/birds/:id/reviews", reviewRoutes);
+app.use("/birds/:id/comments", commentRoutes);
 app.use("/", userRoutes);
 
 app.get("/", (req, res) => {

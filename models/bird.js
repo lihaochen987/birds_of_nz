@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Review = require("./review");
+const Comment = require("./comment");
 const Schema = mongoose.Schema;
 
 const BirdSchema = new Schema({
@@ -11,22 +11,22 @@ const BirdSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  reviews: [
+  comments: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Review",
+      ref: "Comment",
     },
   ],
 });
 
 module.exports = mongoose.model("Bird", BirdSchema);
 
-// Not 100% sure what this does, but it deletes our reviews lol
+// Not 100% sure what this does, but it deletes our comments lol
 BirdSchema.post("findOneAndDelete", async function (doc) {
   if (doc) {
-    await Review.deleteMany({
+    await Comment.deleteMany({
       _id: {
-        $in: doc.reviews,
+        $in: doc.comments,
       },
     });
   }

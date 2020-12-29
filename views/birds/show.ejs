@@ -82,9 +82,9 @@
   <div class="row align-items-center">
     <% if (currentUser) {%>
     <div class="px-0 text-center d-lg-block">
-      <h2>Leave a Review</h2>
+      <h2>Leave a Comment</h2>
       <form
-        action="/birds/<%=bird._id%>/reviews"
+        action="/birds/<%=bird._id%>/comments"
         method="POST"
         class="mb-3 validated-form"
         novalidate
@@ -96,15 +96,15 @@
             type="range"
             min="1"
             max="5"
-            name="review[rating]"
+            name="comment[rating]"
             id="rating"
           />
         </div>
         <div class="mb-3">
-          <label class="form-label" for="body">Review</label>
+          <label class="form-label" for="body">Comment</label>
           <textarea
             class="form-control"
-            name="review[body]"
+            name="comment[body]"
             id="body"
             cols="30"
             rows="3"
@@ -116,17 +116,17 @@
       </form>
       <% } %> 
       
-      <% for(let review of bird.reviews) { %>
+      <% for(let comment of bird.comments) { %>
       <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title">Rating: <%= review.rating %></h5>
+          <h5 class="card-title">Rating: <%= comment.rating %></h5>
           <h6 class="card-subtitle mb-2 text-muted">
-            By <%= review.author.username%>
+            By <%= comment.author.username%>
           </h6>
-          <p class="card-text"><%= review.body %></p>
-          <% if( currentUser && review.author.equals(currentUser._id)) {%>
+          <p class="card-text"><%= comment.body %></p>
+          <% if( currentUser && comment.author.equals(currentUser._id)) {%>
           <form
-            action="/birds/<%=bird._id%>/reviews/<%=review._id%>?_method=DELETE"
+            action="/birds/<%=bird._id%>/comments/<%=comment._id%>?_method=DELETE"
             method="POST"
           >
             <button class="btn btn-sm btn-danger">Delete</button>

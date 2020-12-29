@@ -20,7 +20,7 @@ module.exports.createPost = async (req, res) => {
 module.exports.showPost = async (req, res) => {
   const bird = await Bird.findById(req.params.id)
     .populate({
-      path: "reviews",
+      path: "comments",
       populate: {
         path: "author",
       },
