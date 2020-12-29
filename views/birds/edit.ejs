@@ -36,9 +36,56 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label" for="image">Add Images</label>
-        <input type="file" name="image" id="image" multiple />
+        <label for="image" class="form-label">Add Image(s)...</label>
+        <input
+          class="form-control"
+          type="file"
+          name="image"
+          id="image"
+          multiple
+        />
       </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea
+          class="form-control"
+          type="text"
+          id="description"
+          name="bird[description]"
+          required
+        >
+        <%= bird.description%></textarea
+        >
+        <div class="valid-feedback">Looks Good!</div>
+      </div>
+
+      <div class="mb-3">
+        <% bird.images.forEach(function(img,i) { %>
+        <img
+          src="<%= img.url %> "
+          class="img-thumbnail"
+          alt="Image of <%= bird.species %> "
+        />
+        <div class="form-check-inline">
+          <input
+            type="checkbox"
+            id="image-<%= i %> "
+            name="deleteImages[]"
+            value="<%= img.filename %> "
+          />
+          <label for="image-<%= i %> ">Delete Image</label>
+        </div>
+        <% }) %>
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-info">Update Entry</button>
+      </div>
+    </form>
+    <a href="/birds/<%= bird._id%>">Back To Birds</a>
+  </div>
+</div>
 
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>
