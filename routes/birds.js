@@ -27,7 +27,13 @@ router
   .route("/:id")
   // Understand this more!
   .get(isLoggedIn, catchAsync(birds.showPost))
-  .put(isLoggedIn, isAuthor, validatePost, catchAsync(birds.updatePost))
+  .put(
+    isLoggedIn,
+    isAuthor,
+    upload.array("image"),
+    validatePost,
+    catchAsync(birds.updatePost)
+  )
   .delete(isLoggedIn, isAuthor, catchAsync(birds.deletePost));
 
 router.get("/:id/edit", isAuthor, catchAsync(birds.renderEditForm));

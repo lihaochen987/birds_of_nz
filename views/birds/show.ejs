@@ -1,7 +1,32 @@
 <% layout('layouts/boilerplate')%>
 
+<script>
+  const elem = document.querySelector(".main-carousel");
+  const flkty = new Flickity(elem, {
+    // options
+    cellAlign: "left",
+    contain: true,
+  });
+
+  // element argument can be a selector string
+  //   for an individual element
+  const flkty = new Flickity(".main-carousel", {
+    // options
+  });
+</script>
+
+<!-- Flickity CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/flickity@2/dist/flickity.min.css"
+/>
+
+<!-- Flickity JS -->
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
 <section class="container-fluid">
   <div class="row align-items-center">
+    <!-- Information card, left side -->
     <div class="col-lg-4 px-0 text-center d-lg-block">
       <div class="card" style="width: 18rem">
         <div class="card-body">
@@ -28,14 +53,15 @@
       </div>
     </div>
 
-    <div class="col-lg-8 px-0">
-      <% for (let img of bird.images) { %>
-      <img
-        src="<%= img.url %> "
-        class="d-block w-100"
-        alt="Image of <%= bird.species %> "
-      />
-      <% } %>
+    <!-- Image, right side -->
+    <div class="col-lg-8">
+      <div class="main-carousel" data-flickity='{ "wrapAround": true }'>
+        <% bird.images.forEach((img) => { %>
+        <div class="carousel-cell">
+          <img src= "<%= img.url %>" alt="<%= bird.species %>" />
+        </div>
+        <% }) %>
+      </div>
     </div>
   </div>
 

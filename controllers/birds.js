@@ -48,8 +48,11 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updatePost = async (req, res) => {
   const { id } = req.params;
   const bird = await Bird.findByIdAndUpdate(id, { ...req.body.bird });
+  const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+  bird.images.push(...imgs);
+  await bird.save();
   req.flash("success", "Successfully updated a post");
-  res.redirect(`${bird._id}`);
+  res.redirect(`/birds/${bird._id}`);
 };
 
 module.exports.deletePost = async (req, res) => {
