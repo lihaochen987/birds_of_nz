@@ -90,17 +90,6 @@
         novalidate
       >
         <div class="mb-3">
-          <label class="form-label" for="rating">Rating</label>
-          <input
-            class="form-range"
-            type="range"
-            min="1"
-            max="5"
-            name="comment[rating]"
-            id="rating"
-          />
-        </div>
-        <div class="mb-3">
           <label class="form-label" for="body">Comment</label>
           <textarea
             class="form-control"
@@ -114,12 +103,9 @@
         </div>
         <button class="btn btn-success">Submit</button>
       </form>
-      <% } %> 
-      
-      <% for(let comment of bird.comments) { %>
+      <% } %> <% for(let comment of bird.comments) { %>
       <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title">Rating: <%= comment.rating %></h5>
           <h6 class="card-subtitle mb-2 text-muted">
             By <%= comment.author.username%>
           </h6>
