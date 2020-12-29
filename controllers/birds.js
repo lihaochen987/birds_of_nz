@@ -1,4 +1,5 @@
 const Bird = require("../models/bird");
+const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
   const birds = await Bird.find({});
@@ -49,9 +50,17 @@ module.exports.updatePost = async (req, res) => {
   const { id } = req.params;
   console.log(req.body);
   const bird = await Bird.findByIdAndUpdate(id, { ...req.body.bird });
-  const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+  const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   bird.images.push(...imgs);
   await bird.save();
+  if (req.body.deleteImages) {
+    for (let filename of req.body.deleteImages) {
+      await cloudinary.uploader.destroy(filename);
+    }
+    await bird.updateOne({
+      $pull: { images: { filename: { $in: req.body.deleteImages } } },
+    });
+  }
   req.flash("success", "Successfully updated a post");
   res.redirect(`/birds/${bird._id}`);
 };
