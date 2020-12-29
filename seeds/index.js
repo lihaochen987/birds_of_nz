@@ -35,6 +35,10 @@ const seedDB = async () => {
           filename: "BirdsOfNewZealand/vqhvhs4k9kek1fhyket9",
         },
       ],
+      geometry: {
+        type: "Point",
+        coordinates: [174.7626, -36.8483],
+      },
     });
     await bird.save();
   }

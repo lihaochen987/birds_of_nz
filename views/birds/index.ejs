@@ -12,19 +12,27 @@
   <div class="col-lg-4 flex-wrap align-content-start">
     <div class="card mb-5 border-white" style="width: 20rem">
       <a href="/birds/<%=bird._id%>">
+        <% if (bird.images.length) { %>
         <img
           src="<%= bird.images[0].url %> "
           class="card-img-top rounded-circle"
           alt="image of <%= bird.species %> "
         />
+        <% } else { %>
+        <img
+          class="img-fluid"
+          src="https://res.cloudinary.com/dabgwgfzh/image/upload/v1609232539/BirdsOfNewZealand/lunxjy92s035iti1aurf.jpg"
+          alt=""
+        />
+        <% } %>
       </a>
 
       <div class="card-body">
-        <h4 class="card-title text-center"><%= bird.species %></h5>
-        <h5 class = "card-subtitle mb-2 text-muted text-center"><%= bird.location %> </h4>
-        <p class="card-text text-center">
-          <%= bird.description  %> 
-        </p>
+        <h4 class="card-title text-center"><%= bird.species %></h4>
+        <h5 class="card-subtitle mb-2 text-muted text-center">
+          <%= bird.location %>
+        </h5>
+        <p class="card-text text-center"><%= bird.description %></p>
       </div>
     </div>
   </div>
