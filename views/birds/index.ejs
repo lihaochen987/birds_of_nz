@@ -1,4 +1,4 @@
-<% layout('layouts/boilerplate')%>
+<% layout('layouts/birdsIndex')%>
 
 <div id="map" style="width: 100%; height: 500px"></div>
 <div class="container">
@@ -12,12 +12,12 @@
   <div class="row">
     <% for (let bird of birds) { %>
     <div class="col-lg-4 flex-wrap align-content-start">
-      <div class="card mb-5 border-white" style="width: 20rem">
+      <div class="card mb-5 border-white bird-entry" style="width: 20rem">
         <a href="/birds/<%=bird._id%>">
           <% if (bird.images.length) { %>
           <img
             src="<%= bird.images[0].url %> "
-            class="card-img-top rounded-circle"
+            class="card-img-top rounded-circle circle-size"
             alt="image of <%= bird.species %> "
           />
           <% } else { %>
