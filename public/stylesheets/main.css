@@ -16,3 +16,17 @@ body {
 }
 
 /* partials/navbar */
+
+.navbar {
+  background-color: #6f8c5f;
+}
+
+/* partials/footer */
+
+.footer {
+  background-color: #6f8c5f;
+}
+
+.footer-panel {
+  color: #ffffff;
+}

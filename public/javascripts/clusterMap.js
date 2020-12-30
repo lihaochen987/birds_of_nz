@@ -34,11 +34,11 @@ map.on('load', function () {
             'circle-color': [
                 'step',
                 ['get', 'point_count'],
-                '#00BCD4',
+                '#a1b68b',
                 10,
-                '#2196F3',
+                '#84a98c',
                 30,
-                '#3F51B5'
+                '#6f8c5f'
             ],
             'circle-radius': [
                 'step',
@@ -70,7 +70,7 @@ map.on('load', function () {
         source: 'birds',
         filter: ['!', ['has', 'point_count']],
         paint: {
-            'circle-color': '#11b4da',
+            'circle-color': '#100f0c',
             'circle-radius': 4,
             'circle-stroke-width': 1,
             'circle-stroke-color': '#fff'
