@@ -46,7 +46,7 @@ const BirdSchema = new Schema(
 
 BirdSchema.virtual('properties.popUpMarkup').get(function () {
   return `
-  <strong><a href="/birds/${this._id}">${this.title}</a><strong>
+  <strong><a href="/birds/${this._id}">${this.species}</a><strong>
   <p>${this.description.substring(0, 20)}...</p>`
 });
 
