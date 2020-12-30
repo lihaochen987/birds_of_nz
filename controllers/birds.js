@@ -1,3 +1,4 @@
+const locations = require("../data/NZTowns");
 const Bird = require("../models/bird");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
@@ -5,12 +6,13 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
-  const birds = await Bird.find({}).populate('popupText');
+  const birds = await Bird.find({}).populate("popupText");
   res.render("birds/index", { birds });
 };
 
 module.exports.renderNewForm = (req, res) => {
-  res.render("birds/new");
+  const locationArray = locations;
+  res.render("birds/new", { locations });
 };
 
 module.exports.createPost = async (req, res) => {
@@ -48,21 +50,31 @@ module.exports.showPost = async (req, res) => {
 
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;
+  const locationArray = locations;
   const bird = await Bird.findById(id);
   if (!bird) {
     req.flash("error", "Cannot find that post!");
     return res.redirect("/birds");
   }
-  res.render("birds/edit", { bird });
+  res.render("birds/edit", { bird, locations });
 };
 
 module.exports.updatePost = async (req, res) => {
   const { id } = req.params;
-  console.log(req.body);
   const bird = await Bird.findByIdAndUpdate(id, { ...req.body.bird });
   const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
+  const location = req.body.bird.location;
+  bird.location = location;
   bird.images.push(...imgs);
+  const geoData = await geocoder
+    .forwardGeocode({
+      query: req.body.bird.location,
+      limit: 1,
+    })
+    .send();
+  bird.geometry = geoData.body.features[0].geometry;
   await bird.save();
+  console.log(bird);
   if (req.body.deleteImages) {
     for (let filename of req.body.deleteImages) {
       await cloudinary.uploader.destroy(filename);
