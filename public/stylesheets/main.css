@@ -1,0 +1,18 @@
+body {
+  font-family: "Andika New Basic", sans-serif;
+  background-color: #d4d0cb;
+}
+
+/* birds/index page */
+
+.circle-size {
+  width: 250px;
+  height: 250px;
+}
+
+.bird-entry {
+  align-items: center;
+  justify-content: center;
+}
+
+/* partials/navbar */
