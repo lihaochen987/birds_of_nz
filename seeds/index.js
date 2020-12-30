@@ -37,7 +37,7 @@ const seedDB = async () => {
       ],
       geometry: {
         type: "Point",
-        coordinates: [174.7626, -36.8483],
+        coordinates: [birdSeed[i].longitude, birdSeed[i].latitude],
       },
     });
     await bird.save();

@@ -4,7 +4,7 @@ module.exports = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     location: "Auckland",
-    latitude: 36.8483,
+    latitude: -36.8483,
     longitude: 174.7626,
   },
   {
@@ -12,7 +12,7 @@ module.exports = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     location: "Auckland",
-    latitude: 36.8483,
+    latitude: -36.8483,
     longitude: 174.7626,
   },
   {
@@ -20,7 +20,7 @@ module.exports = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     location: "Auckland",
-    latitude: 36.8483,
+    latitude: -36.8483,
     longitude: 174.7626,
   },
   {
@@ -28,7 +28,7 @@ module.exports = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     location: "Wellington",
-    latitude: 41.2749,
+    latitude: -41.2749,
     longitude: 174.7745,
   },
   {
@@ -36,7 +36,7 @@ module.exports = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     location: "Wellington",
-    latitude: 41.2749,
+    latitude: -41.2749,
     longitude: 174.7745,
   },
   {
@@ -44,7 +44,7 @@ module.exports = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       location: "Wellington",
-      latitude: 41.2749,
+      latitude: -41.2749,
       longitude: 174.7745,
   },
   {
@@ -52,7 +52,7 @@ module.exports = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     location: "Hamilton",
-    latitude: 37.7826,
+    latitude: -37.7826,
     longitude: 175.2528,
   },
   {
@@ -60,7 +60,7 @@ module.exports = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       location: "Hamilton",
-      latitude: 37.7826,
+      latitude: -37.7826,
       longitude: 175.2528,
   },
   {
@@ -68,7 +68,7 @@ module.exports = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       location: "Hamilton",
-      latitude: 37.7826,
+      latitude: -37.7826,
       longitude: 175.2528,
   },
   {
@@ -76,7 +76,7 @@ module.exports = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       location: "Hamilton",
-      latitude: 37.7826,
+      latitude: -37.7826,
       longitude: 175.2528,
   },
 ];

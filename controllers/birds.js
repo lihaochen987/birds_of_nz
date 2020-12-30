@@ -5,7 +5,7 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
-  const birds = await Bird.find({});
+  const birds = await Bird.find({}).populate('popupText');
   res.render("birds/index", { birds });
 };
 

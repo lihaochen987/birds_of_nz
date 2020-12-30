@@ -1,40 +1,49 @@
 <% layout('layouts/boilerplate')%>
 
-<h1>All Birds</h1>
-<div>
-  <a href="/birds/new">Post an Entry</a>
-</div>
+<div id="map" style="width: 100%; height: 500px"></div>
+<div class="container">
+  <h1>All Birds</h1>
+  <div>
+    <a href="/birds/new">Post an Entry</a>
+  </div>
 
-<p><% birds %></p>
+  <p><% birds %></p>
 
-<div class="row">
-  <% for (let bird of birds) { %>
-  <div class="col-lg-4 flex-wrap align-content-start">
-    <div class="card mb-5 border-white" style="width: 20rem">
-      <a href="/birds/<%=bird._id%>">
-        <% if (bird.images.length) { %>
-        <img
-          src="<%= bird.images[0].url %> "
-          class="card-img-top rounded-circle"
-          alt="image of <%= bird.species %> "
-        />
-        <% } else { %>
-        <img
-          class="img-fluid"
-          src="https://res.cloudinary.com/dabgwgfzh/image/upload/v1609232539/BirdsOfNewZealand/lunxjy92s035iti1aurf.jpg"
-          alt=""
-        />
-        <% } %>
-      </a>
+  <div class="row">
+    <% for (let bird of birds) { %>
+    <div class="col-lg-4 flex-wrap align-content-start">
+      <div class="card mb-5 border-white" style="width: 20rem">
+        <a href="/birds/<%=bird._id%>">
+          <% if (bird.images.length) { %>
+          <img
+            src="<%= bird.images[0].url %> "
+            class="card-img-top rounded-circle"
+            alt="image of <%= bird.species %> "
+          />
+          <% } else { %>
+          <img
+            class="img-fluid"
+            src="https://res.cloudinary.com/dabgwgfzh/image/upload/v1609232539/BirdsOfNewZealand/lunxjy92s035iti1aurf.jpg"
+            alt=""
+          />
+          <% } %>
+        </a>
 
-      <div class="card-body">
-        <h4 class="card-title text-center"><%= bird.species %></h4>
-        <h5 class="card-subtitle mb-2 text-muted text-center">
-          <%= bird.location %>
-        </h5>
-        <p class="card-text text-center"><%= bird.description %></p>
+        <div class="card-body">
+          <h4 class="card-title text-center"><%= bird.species %></h4>
+          <h5 class="card-subtitle mb-2 text-muted text-center">
+            <%= bird.location %>
+          </h5>
+          <p class="card-text text-center"><%= bird.description %></p>
+        </div>
       </div>
     </div>
+    <% }%>
   </div>
-  <% } %>
+  <script>
+    const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    const birds = { features: <%- JSON.stringify(birds) %>}
+  </script>
+
+  <script src="/javascripts/clusterMap.js"></script>
 </div>

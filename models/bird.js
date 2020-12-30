@@ -11,32 +11,43 @@ ImageSchema.virtual("thumbnail").get(function () {
   return this.url.replace("/upload", "/upload/w_200");
 });
 
-const BirdSchema = new Schema({
-  species: String,
-  description: String,
-  location: String,
-  images: [ImageSchema],
-  geometry: {
-    type: {
-      type: String,
-      enum: ["Point"],
-      required: true,
+const opts = { toJSON: { virtuals: true } };
+
+const BirdSchema = new Schema(
+  {
+    species: String,
+    description: String,
+    location: String,
+    images: [ImageSchema],
+    geometry: {
+      type: {
+        type: String,
+        enum: ["Point"],
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
     },
-    coordinates: {
-      type: [Number],
-      required: true,
-    },
-  },
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-  comments: [
-    {
+    author: {
       type: Schema.Types.ObjectId,
-      ref: "Comment",
+      ref: "User",
     },
-  ],
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+  },
+  opts
+);
+
+BirdSchema.virtual('properties.popUpMarkup').get(function () {
+  return `
+  <strong><a href="/birds/${this._id}">${this.title}</a><strong>
+  <p>${this.description.substring(0, 20)}...</p>`
 });
 
 module.exports = mongoose.model("Bird", BirdSchema);
