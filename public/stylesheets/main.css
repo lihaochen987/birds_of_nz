@@ -10,6 +10,10 @@ body {
   height: 250px;
 }
 
+.card {
+  background-color: #d4d0cb;
+}
+
 .bird-entry {
   align-items: center;
   justify-content: center;

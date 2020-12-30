@@ -70,7 +70,7 @@ map.on('load', function () {
         source: 'birds',
         filter: ['!', ['has', 'point_count']],
         paint: {
-            'circle-color': '#100f0c',
+            'circle-color': '#95d5b2',
             'circle-radius': 4,
             'circle-stroke-width': 1,
             'circle-stroke-color': '#fff'
