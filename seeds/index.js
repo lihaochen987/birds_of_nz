@@ -19,10 +19,14 @@ const seedDB = async () => {
   await Bird.deleteMany({});
   for (let i = 0; i < 10; i++) {
     const bird = new Bird({
-      location: `${birdSeed[i].location}, New Zealand`,
+      location: `${birdSeed[i].location}`,
       species: `${birdSeed[i].species}`,
       description: `${birdSeed[i].description}`,
-      author: "5fe5a377690cc3358029c82b",
+      author: {
+        _id: "5febef29be1a211b14242292",
+        email: "test@gmail.com",
+        username: "test",
+      },
       images: [
         {
           url:

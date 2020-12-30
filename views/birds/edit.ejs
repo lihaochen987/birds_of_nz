@@ -1,4 +1,5 @@
 <% layout('layouts/boilerplate')%>
+
 <div class="row">
   <h1 class="text-center">Edit Bird</h1>
   <div class="col-6 offset-3">
@@ -22,25 +23,27 @@
         <div class="valid-feedback">Looks Good!</div>
       </div>
 
+      <script>
+        $(document).ready(function () {
+          $(".location").select2();
+        });
+      </script>
+
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
         <select
           class="form-control location"
           name="bird[location]"
           id="location"
+          data-placeholder="<%= bird.location %>"
           required
         >
+          <option value="<%= bird.location %>"><%= bird.location%></option>
           <% for (let i = 0; i < locations.length; i++) { %>
           <option value="<%= locations[i] %> "><%=locations[i]%></option>
           <% } %>
         </select>
       </div>
-
-      <script>
-        $(document).ready(function () {
-          $(".location").select2();
-        });
-      </script>
 
       <div class="mb-3">
         <label for="image" class="form-label">Add Image(s)...</label>
@@ -91,7 +94,5 @@
       </div>
     </form>
     <a href="/birds/<%= bird._id%>">Back To Birds</a>
-  </div>
-</div>
   </div>
 </div>
