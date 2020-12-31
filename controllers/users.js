@@ -1,5 +1,5 @@
 require("dotenv").config();
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
 const User = require("../models/user");
 
 module.exports.renderRegister = (req, res) => {
@@ -42,6 +42,7 @@ module.exports.renderReset = (req, res) => {
 module.exports.resetUser = (req, res, next) => {
   const username = process.env.NODEMAILER_USERNAME;
   const password = process.env.NODEMAILER_PASSWORD;
+  const userEmail = req.body.email;
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -49,12 +50,13 @@ module.exports.resetUser = (req, res, next) => {
       pass: password,
     },
   });
-
   const mailOptions = {
     from: username,
-    to: "lihaochen987@gmail.com",
-    subject: "Sending email using Node.js",
-    text: `Testing nodemailer js email`,
+    to: userEmail,
+    subject: "Reset your Birds Of New Zealand password",
+    html: `<h1> Want to reset your password? </h1>
+    <p>Someone recently requested a password change for your Birds of New Zealand account. If this was you, click the button to set a new password</p>
+    <button>Reset Password</button>`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
