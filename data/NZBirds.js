@@ -1,6 +1,6 @@
 module.exports = [
   {
-    name: "Bellibird",
+    name: "Bellbird",
     maori: "Korimako",
     category: "Common Birds",
   },
@@ -147,7 +147,7 @@ module.exports = [
   },
   {
     name: "Great spotted kiwi",
-    maori: "roroa",
+    maori: "Roroa",
     category: "Flightless Birds",
   },
   {
@@ -251,7 +251,12 @@ module.exports = [
     category: "Endangered endemic birds (flying)",
   },
   {
-    name: "KeaStitchbird",
+    name: "Kea",
+    maori: "Kea",
+    category: "Endangered endemic birds (flying)",
+  },
+  {
+    name: "Stitchbird",
     maori: "Hihi",
     category: "Endangered endemic birds (flying)",
   },

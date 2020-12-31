@@ -11,21 +11,25 @@
       enctype="multipart/form-data"
     >
       <div class="mb-3">
-        <label class="form-label" for="species">Species</label>
-        <input
-          class="form-control"
-          type="text"
-          id="species"
+        <label for="species" class="form-label">Species</label>
+        <select
+          class="form-control dropdown"
           name="bird[species]"
+          id="species"
           required
-        />
-        <div class="valid-feedback">Looks Good!</div>
+        >
+          <% for (let i = 0; i < birdData.length; i++) { %>
+          <option value="<%= birdData[i].name %> ">
+            <%=birdData[i].name%>
+          </option>
+          <% } %>
+        </select>
       </div>
 
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
         <select
-          class="form-control location"
+          class="form-control dropdown"
           name="bird[location]"
           id="location"
           required
@@ -38,7 +42,7 @@
 
       <script>
         $(document).ready(function () {
-          $(".location").select2();
+          $(".dropdown").select2();
         });
       </script>
 

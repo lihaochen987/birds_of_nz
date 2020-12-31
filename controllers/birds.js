@@ -1,4 +1,5 @@
 const locations = require("../data/NZTowns");
+const birdData = require ("../data/NZBirds");
 const Bird = require("../models/bird");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
@@ -12,7 +13,8 @@ module.exports.index = async (req, res) => {
 
 module.exports.renderNewForm = (req, res) => {
   const locationArray = locations;
-  res.render("birds/new", { locations });
+  const birdDataArray = birdData;
+  res.render("birds/new", { locations, birdData });
 };
 
 module.exports.createPost = async (req, res) => {
@@ -23,6 +25,7 @@ module.exports.createPost = async (req, res) => {
     })
     .send();
   const bird = new Bird(req.body.bird);
+  bird.species = req.body.bird.species;
   bird.geometry = geoData.body.features[0].geometry;
   bird.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   bird.author = req.user._id;
@@ -50,13 +53,14 @@ module.exports.showPost = async (req, res) => {
 
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;
+  const birdDataArray = birdData;
   const locationArray = locations;
   const bird = await Bird.findById(id);
   if (!bird) {
     req.flash("error", "Cannot find that post!");
     return res.redirect("/birds");
   }
-  res.render("birds/edit", { bird, locations });
+  res.render("birds/edit", { bird, locations, birdData });
 };
 
 module.exports.updatePost = async (req, res) => {
@@ -64,6 +68,8 @@ module.exports.updatePost = async (req, res) => {
   const bird = await Bird.findByIdAndUpdate(id, { ...req.body.bird });
   const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   const location = req.body.bird.location;
+  const species = req.body.bird.species;
+  bird.species = species;
   bird.location = location;
   bird.images.push(...imgs);
   const geoData = await geocoder
