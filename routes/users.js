@@ -24,9 +24,7 @@ router
     users.renderLogin
   );
 
-router.route("/reset").get((req, res) => {
-  res.render("users/reset");
-});
+router.route("/reset").get(users.renderReset);
 
 router.get("/logout", users.logout);
 

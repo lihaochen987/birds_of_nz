@@ -32,3 +32,7 @@ module.exports.logout = (req, res) => {
   req.flash("success", "Thank you for visiting Birds of New Zealand!");
   res.redirect("/birds");
 };
+
+module.exports.renderReset = (req, res) => {
+  res.render("users/reset");
+};
