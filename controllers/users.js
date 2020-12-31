@@ -1,3 +1,5 @@
+require("dotenv").config();
+const nodemailer = require("nodemailer")
 const User = require("../models/user");
 
 module.exports.renderRegister = (req, res) => {
@@ -35,4 +37,33 @@ module.exports.logout = (req, res) => {
 
 module.exports.renderReset = (req, res) => {
   res.render("users/reset");
+};
+
+module.exports.resetUser = (req, res, next) => {
+  const username = process.env.NODEMAILER_USERNAME;
+  const password = process.env.NODEMAILER_PASSWORD;
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: username,
+      pass: password,
+    },
+  });
+
+  const mailOptions = {
+    from: username,
+    to: "lihaochen987@gmail.com",
+    subject: "Sending email using Node.js",
+    text: `Testing nodemailer js email`,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+  req.flash("Successfully reset your email!");
+  res.redirect("/birds");
 };

@@ -13,6 +13,7 @@ router
 
 router
   .route("/login")
+  // Not sure why this doesn't work when rerouted to a controller
   .get((req, res) => {
     res.render("users/login");
   })
@@ -24,7 +25,7 @@ router
     users.renderLogin
   );
 
-router.route("/reset").get(users.renderReset);
+router.route("/reset").get(users.renderReset).post(users.resetUser);
 
 router.get("/logout", users.logout);
 
