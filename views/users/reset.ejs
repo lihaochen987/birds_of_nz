@@ -1,0 +1,22 @@
+<% layout('layouts/boilerplate') %>
+<h1>Reset my password</h1>
+
+<form
+  action="/reset"
+  method="POST"
+  class="validated-form"
+  id="reset"
+  novalidate
+>
+  <div class="mb-3">
+    <label class="form-label" for="email">Email</label>
+    <input class="form-control" type="email" id="email" name="email" required />
+    <div class="valid-feedback">Looks Good!</div>
+  </div>
+</form>
+
+<button class="btn btn-success" form="reset">Submit</button>
+
+<a href="/login">
+  <button class="btn btn-primary">Go Back</button>
+</a>

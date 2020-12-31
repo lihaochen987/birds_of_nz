@@ -4,6 +4,7 @@ const passport = require("passport");
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/user");
 const users = require("../controllers/users");
+const { reset } = require("nodemon");
 
 router
   .route("/register")
@@ -22,6 +23,10 @@ router
     }),
     users.renderLogin
   );
+
+router.route("/reset").get((req, res) => {
+  res.render("users/reset");
+});
 
 router.get("/logout", users.logout);
 
