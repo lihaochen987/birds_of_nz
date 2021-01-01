@@ -7,12 +7,13 @@
     <a href="/birds/new">Post an Entry</a>
   </div>
 
-  <p><% birds %></p>
-
   <div class="row">
-    <% for (let bird of birds) { %>
+    <% for (let bird of birds.reverse()) { %>
     <div class="col-lg-4 flex-wrap align-content-start image-card">
-      <div class="index-card card mb-5 border-0 bird-entry" style="width: 20rem">
+      <div
+        class="index-card card mb-5 border-0 bird-entry"
+        style="width: 20rem"
+      >
         <a href="/birds/<%=bird._id%>">
           <% if (bird.images.length) { %>
           <img
