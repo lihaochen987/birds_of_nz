@@ -53,7 +53,7 @@ const BirdSchema = new Schema(
 BirdSchema.virtual("properties.popUpMarkup").get(function () {
   return `
 <div class="card" style="width: 9rem;">
-  <img class="card-img-top" src="${this.images[0].url}" alt="Card image cap">
+  <img class="card-img-top" src="${this.images[0].url}" alt="image of ${this.species}">
   <div class="card-body text-center">
   <strong><a href="/birds/${this._id}">${this.species}</a><strong>
   </div>
