@@ -1,6 +1,11 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Birds of New Zealand</a>
+    <a class="navbar-brand" href="#">
+      <img
+        class="img-fluid logo-image"
+        src="/images/logofull.png"
+        alt="Birds of New Zealand logo"
+    /></a>
     <button
       class="navbar-toggler"
       type="button"
@@ -21,12 +26,14 @@
       </div>
     </div>
     <div class="navbar-nav ml-auto">
-      <% if(!currentUser) {%>
-      <a class="nav-link" href="/login">Login</a>
-      <a class="nav-link" href="/register">Register</a>
-      <% } else {%>
-      <a class="nav-link" href="/logout">Logout</a>
-      <% } %>
+      <span class = "user-links d-none d-lg-block d-md-block">
+        <% if(!currentUser) {%>
+        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/register">Register</a>
+        <% } else {%>
+        <a class="nav-link" href="/logout">Logout</a>
+        <% } %>
+      </span>
     </div>
   </div>
 </nav>
