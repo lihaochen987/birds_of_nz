@@ -1,9 +1,10 @@
 const locations = require("../data/NZTowns");
-const birdData = require ("../data/NZBirds");
+const birdData = require("../data/NZBirds");
 const Bird = require("../models/bird");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
+const { response } = require("express");
 const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
@@ -80,9 +81,9 @@ module.exports.updatePost = async (req, res) => {
     .send();
   bird.geometry = geoData.body.features[0].geometry;
   await bird.save();
-  console.log(bird);
   if (req.body.deleteImages) {
     for (let filename of req.body.deleteImages) {
+      console.log(filename);
       await cloudinary.uploader.destroy(filename);
     }
     await bird.updateOne({

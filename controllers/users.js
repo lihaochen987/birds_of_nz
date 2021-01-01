@@ -23,8 +23,9 @@ module.exports.register = async (req, res, next) => {
 };
 
 module.exports.renderLogin = (req, res) => {
+  console.log(req.session.returnTo);
   req.flash("success", "Welcome Back!");
-  const redirectUrl = req.sessionreturnTo || "/birds";
+  const redirectUrl = req.session.returnTo || "/birds";
   delete req.session.returnTo;
   res.redirect(redirectUrl);
 };
