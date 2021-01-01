@@ -50,10 +50,15 @@ const BirdSchema = new Schema(
   opts
 );
 
-BirdSchema.virtual('properties.popUpMarkup').get(function () {
+BirdSchema.virtual("properties.popUpMarkup").get(function () {
   return `
+<div class="card" style="width: 9rem;">
+  <img class="card-img-top" src="${this.images[0].url}" alt="Card image cap">
+  <div class="card-body text-center">
   <strong><a href="/birds/${this._id}">${this.species}</a><strong>
-  <p>${this.description.substring(0, 20)}...</p>`
+  </div>
+</div>
+`;
 });
 
 module.exports = mongoose.model("Bird", BirdSchema);

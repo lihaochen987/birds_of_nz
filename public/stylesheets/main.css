@@ -10,7 +10,7 @@ body {
   height: 250px;
 }
 
-.card {
+.index-card {
   background-color: #d4d0cb;
 }
 
@@ -33,4 +33,10 @@ body {
 
 .footer-panel {
   color: #ffffff;
+}
+
+/* models/birds (map-popup) */
+.mapboxgl-popup-content {
+  padding: 0;
+  font-family: "Andika New Basic", sans-serif;
 }
