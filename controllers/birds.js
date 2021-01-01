@@ -67,6 +67,7 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updatePost = async (req, res) => {
   const { id } = req.params;
   const bird = await Bird.findByIdAndUpdate(id, { ...req.body.bird });
+  console.log(bird);
   const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   const location = req.body.bird.location;
   const species = req.body.bird.species;
@@ -81,13 +82,13 @@ module.exports.updatePost = async (req, res) => {
     .send();
   bird.geometry = geoData.body.features[0].geometry;
   await bird.save();
+  const formatDeleteRequest = req.body.deleteImages.map((s) => s.trim());
   if (req.body.deleteImages) {
     for (let filename of req.body.deleteImages) {
-      console.log(filename);
       await cloudinary.uploader.destroy(filename);
     }
     await bird.updateOne({
-      $pull: { images: { filename: { $in: req.body.deleteImages } } },
+      $pull: { images: { filename: { $in: formatDeleteRequest } } },
     });
   }
   req.flash("success", "Successfully updated a post");
