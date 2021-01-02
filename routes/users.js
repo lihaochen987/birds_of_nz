@@ -25,7 +25,14 @@ router
     users.renderLogin
   );
 
-router.route("/reset").get(users.renderReset).post(users.resetUser);
+// Testing code (starts)
+router.get("/forgot", function (req, res) {
+  res.render("users/forgot", {
+    user: req.user,
+  });
+});
+
+// Testing code (ends)
 
 router.get("/logout", users.logout);
 

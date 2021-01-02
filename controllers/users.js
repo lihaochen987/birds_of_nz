@@ -35,10 +35,6 @@ module.exports.logout = (req, res) => {
   res.redirect("/birds");
 };
 
-module.exports.renderReset = (req, res) => {
-  res.render("users/reset");
-};
-
 module.exports.resetUser = (req, res, next) => {
   const username = process.env.NODEMAILER_USERNAME;
   const password = process.env.NODEMAILER_PASSWORD;
@@ -54,9 +50,15 @@ module.exports.resetUser = (req, res, next) => {
     from: username,
     to: userEmail,
     subject: "Reset your Birds Of New Zealand password",
-    html: `<h1> Want to reset your password? </h1>
-    <p>Someone recently requested a password change for your Birds of New Zealand account. If this was you, click the button to set a new password</p>
-    <button>Reset Password</button>`,
+    text:
+      "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
+      "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
+      "http://" +
+      req.headers.host +
+      "/reset/" +
+      token +
+      "\n\n" +
+      "If you did not request this, please ignore this email and your password will remain unchanged.\n",
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
