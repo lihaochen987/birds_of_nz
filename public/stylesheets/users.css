@@ -1,39 +1,3 @@
-/* partials/navbar */
-
-.navbar {
-  background-color: #6f8c5f;
-}
-
-.logo-image {
-  height: auto;
-  width: 250px;
-}
-
-.nav-link {
-  margin-top: 12px;
-  padding-bottom: 0;
-}
-
-.user-links {
-  flex-direction: row;
-}
-
-@media (min-width: 768px) {
-  .user-links {
-    display: flex !important;
-  }
-}
-
-/* partials/footer */
-
-.footer {
-  background-color: #6f8c5f;
-}
-
-.footer-panel {
-  color: #ffffff;
-}
-
 /* users/login */
 .reset-password-ref {
   text-decoration: none;
