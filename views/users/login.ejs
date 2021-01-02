@@ -1,39 +1,60 @@
 <% layout('layouts/boilerplate') %>
-<h1>Login</h1>
-<form
-  action="/login"
-  method="POST"
-  class="validated-form"
-  id="login"
-  novalidate
->
-  <div class="mb-3">
-    <label class="form-label" for="username">Username</label>
-    <input
-      class="form-control"
-      type="username"
-      id="username"
-      name="username"
-      required
-    />
-    <div class="valid-feedback">Looks Good!</div>
+
+<div class="container d-flex justify-content-center align-items-center mb-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+      <div class="card shadow">
+        <img
+          alt="Register image"
+          class="lazy card-img-top"
+          src="/images/loadingimage.jpg"
+          data-src="https://source.unsplash.com/collection/36390090/1600x900"
+        />
+        <div class="card-body">
+          <h5 class="card-title">Login</h5>
+          <form action="/login" method="POST" class="validated-form" novalidate>
+            <div class="mb-3">
+              <label class="form-label" for="username">Username</label>
+              <input
+                autofocus
+                class="form-control"
+                type="username"
+                id="username"
+                name="username"
+                required
+              />
+              <div class="valid-feedback">Looks Good!</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="password">Password</label>
+              <input
+                class="form-control"
+                type="password"
+                id="password"
+                name="password"
+                required
+              />
+              <div class="valid-feedback">Looks Good!</div>
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-success btn-block">Login</button>
+            </div>
+          </form>
+            <a href="/reset" class = "d-grid reset-password-ref mt-2">
+              <button class="btn btn-danger btn-block">Forgot Password?</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="mb-3">
-    <label class="form-label" for="password">Password</label>
-    <input
-      class="form-control"
-      type="password"
-      id="password"
-      name="password"
-      required
-    />
-    <div class="valid-feedback">Looks Good!</div>
-  </div>
-</form>
-
-<button class="btn btn-success" form="login">Login</button>
-
-<a href="/reset">
-  <button class="btn btn-danger">Forgot Password?</button>
-</a>
+<!-- lazyload -->
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.0/dist/lazyload.min.js"></script>
+<script>
+  const myLazyLoad = new LazyLoad({
+    elements_selector: ".lazy",
+  });
+</script>
