@@ -40,9 +40,6 @@
       <header class="mb-auto">
         <div>
           <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active mx-auto" aria-current="page" href="#"
-              >Home</a
-            >
             <a class="nav-link mx-auto" href="/birds">Birds</a>
             <% if(!currentUser) { %>
             <a class="nav-link mx-auto" href="/login">Login</a>
@@ -54,8 +51,12 @@
         </div>
       </header>
       <main class="px-3">
-        <img src="/images/logofull.png" alt="Birds of New Zealand logo">
-        <p class="lead">Where birds come to life</p>
+        <a href="/birds">
+          <img src="/images/logofull.png" alt="Birds of New Zealand logo" />
+        </a>
+        <p class="lead">
+          Where <b><i>YOUR</i></b> birds come to life
+        </p>
         <a href="/birds" class="btn btn-lg btn-secondary border-white bg-white"
           >View Birds</a
         >
