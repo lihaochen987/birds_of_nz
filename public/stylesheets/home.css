@@ -5,11 +5,11 @@ body {
       rgba(16, 15, 12, 0.5),
       rgba(111, 140, 95, 0.5)
     ),
-    url("https://images.unsplash.com/photo-1583483647885-980b2fa778c8?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80");
+    url("https://res.cloudinary.com/dabgwgfzh/image/upload/v1609694324/BirdsOfNewZealand/emailWebsiteLogo/photo-1583483647885-980b2fa778c8_iccngz.webp");
   background-size: cover;
   background-position: center;
   text-shadow: 0 0.05rem 0.1rem rgba(111, 140, 95, 0.5);
-  box-shadow: inset 0 0 5rem rgba(111, 140, 95, 0.5);
+  box-shadow: inset 0 0 5rem rgba(111, 140, 95, 0.5); 
 }
 
 .cover-container {
@@ -42,3 +42,12 @@ body {
   font-weight: bold;
 }
 
+.home-button {
+  width: 25%;
+}
+
+@media (max-width: 576px) {
+  .home-button {
+    width: 100%;
+  }
+}
