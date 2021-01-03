@@ -2,6 +2,8 @@
 
 .navbar {
   background-color: #6f8c5f;
+  padding: 8px 8px 8px 8px !important;
+  font-family: "Andika New Basic", sans-serif;
 }
 
 .logo-image {
