@@ -2,24 +2,42 @@
 
 <link rel="stylesheet" href="/stylesheets/users.css" />
 
-<h1>Reset my password</h1>
-
-<form
-  action="/forgot"
-  method="POST"
-  class="validated-form"
-  id="reset"
-  novalidate
->
-  <div class="mb-3">
-    <label class="form-label" for="email">Email</label>
-    <input class="form-control" type="email" id="email" name="email" required />
-    <div class="valid-feedback">Looks Good!</div>
+<div class="container user-form-position mb-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow user-form">
+        <div class="card-body">
+          <h5 class="card-title">Reset My Password</h5>
+          <form
+            action="/forgot"
+            method="POST"
+            class="validated-form"
+            id="reset"
+            novalidate
+          >
+            <div class="mb-3">
+              <label class="form-label" for="email">Email</label>
+              <input
+                class="form-control"
+                type="email"
+                id="email"
+                name="email"
+                required
+              />
+              <div class="valid-feedback">Looks Good!</div>
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-success btn-block" form="forgot">
+                Submit
+              </button>
+            </div>
+          </form>
+          <a href="/login" class = "d-grid outside-form-button mt-2">
+            <button class="btn btn-primary btn-block">Go Back</button>
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</form>
-
-<button class="btn btn-success" form="forgot">Submit</button>
-
-<a href="/login">
-  <button class="btn btn-primary">Go Back</button>
-</a>
+</div>
