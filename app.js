@@ -1,10 +1,10 @@
-if (process.env.NODE_ENV !== 'production'){
-  require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
 
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
-const User = require('./models/user');
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("./models/user");
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -17,11 +17,11 @@ const ExpressError = require("./utils/ExpressError");
 const Comment = require("./models/comment");
 const session = require("express-session");
 const flash = require("connect-flash");
-const morgan = require('morgan');
+const morgan = require("morgan");
 
-const userRoutes = require('./routes/users');
-const birdRoutes = require('./routes/birds');
-const commentRoutes = require('./routes/comments');
+const userRoutes = require("./routes/users");
+const birdRoutes = require("./routes/birds");
+const commentRoutes = require("./routes/comments");
 
 mongoose.connect("mongodb://localhost:27017/birds-of-nz", {
   useNewUrlParser: true,
@@ -42,7 +42,7 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use(morgan('tiny'));
+app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
