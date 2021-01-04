@@ -67,7 +67,6 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updatePost = async (req, res) => {
   const { id } = req.params;
   const bird = await Bird.findByIdAndUpdate(id, { ...req.body.bird });
-  console.log(bird);
   const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   const location = req.body.bird.location;
   const species = req.body.bird.species;
