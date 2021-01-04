@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 const Comment = require("./comment");
 const Schema = mongoose.Schema;
 
-const PostLikeSchema = new Schema({
-  likedBy: String,
-});
-
 const ImageSchema = new Schema({
   url: String,
   filename: String,
@@ -27,7 +23,7 @@ const BirdSchema = new Schema(
     description: String,
     location: String,
     likeCount: { type: Number, default: 0 },
-    likedBy: [PostLikeSchema],
+    likedBy: [],
     images: [ImageSchema],
     geometry: {
       type: {

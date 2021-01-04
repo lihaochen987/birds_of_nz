@@ -22,6 +22,7 @@ const morgan = require("morgan");
 const userRoutes = require("./routes/users");
 const birdRoutes = require("./routes/birds");
 const commentRoutes = require("./routes/comments");
+const upvoteRoutes = require("./routes/upvotes");
 
 mongoose.connect("mongodb://localhost:27017/birds-of-nz", {
   useNewUrlParser: true,
@@ -78,6 +79,7 @@ app.use((req, res, next) => {
 app.use("/birds", birdRoutes);
 app.use("/birds/:id/comments", commentRoutes);
 app.use("/", userRoutes);
+app.use("/birds/:id/upvote", upvoteRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");
