@@ -25,7 +25,7 @@ module.exports.validatePost = (req, res, next) => {
 
 module.exports.isAuthor = async (req, res, next) => {
   const { id } = req.params;
-  const bird = await Bird.findById(id);;
+  const bird = await Bird.findById(id);
   if (!bird.author.equals(req.user._id)) {
     req.flash("error", "You do not have permission to do that!");
     return res.redirect(`/birds/${id}`);
@@ -52,4 +52,14 @@ module.exports.validateComment = (req, res, next) => {
   } else {
     next();
   }
+};
+
+module.exports.hasUpvotedPost = async (req, res, next) => {
+  const { id } = req.params;
+  const bird = await Bird.findById(id);
+  if (bird.likedBy.includes(req.user._id)) {
+    req.flash("error", "You have already liked this post!");
+    return res.redirect(`/birds/${id}`);
+  }
+  next();
 };

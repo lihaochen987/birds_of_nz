@@ -6,11 +6,12 @@ const router = express.Router({ mergeParams: true });
 const Bird = require("../models/bird");
 const async = require("async");
 const catchAsync = require("../utils/catchAsync");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, hasUpvotedPost } = require("../middleware");
 
 router.post(
   "/",
   isLoggedIn,
+  hasUpvotedPost,
   catchAsync(async (req, res) => {
     const bird = await Bird.findById(req.params.id);
     bird.likedBy.push(req.user._id);
