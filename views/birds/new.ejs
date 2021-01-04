@@ -64,12 +64,19 @@
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>
         <textarea
-          class="form-control"
+          class="form-control mb-3"
           type="text"
           id="description"
           name="bird[description]"
+          maxlength="200"
+          onkeyup="textCounter(this,'counter',200);"
           required
         ></textarea>
+        <p>
+          You currently have
+          <input disabled maxlength="3" size="3" value="200" id="counter" />
+          characters left
+        </p>
       </div>
       <div class="valid-feedback">Looks Good!</div>
       <div class="mb-3">
@@ -79,3 +86,31 @@
     <a href="/birds">Back To Birds</a>
   </div>
 </div>
+
+<script>
+  // Display 500 characters max
+  function maxLength(el) {
+    if (!("maxLength" in el)) {
+      var max = el.attributes.maxLength.value;
+      el.onkeypress = function () {
+        console.log(el);
+        if (this.value.length >= max) return false;
+      };
+    }
+  }
+
+  maxLength(document.getElementById("description"));
+</script>
+
+<script>
+  // Tells us how many characters we have left
+  function textCounter(field, field2, maxlimit) {
+    var countfield = document.getElementById(field2);
+    if (field.value.length > maxlimit) {
+      field.value = field.value.substring(0, maxlimit);
+      return false;
+    } else {
+      countfield.value = maxlimit - field.value.length;
+    }
+  }
+</script>
