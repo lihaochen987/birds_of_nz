@@ -1,5 +1,8 @@
 <% layout('layouts/boilerplate')%>
 
+<!-- Import lazyload -->
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.0/dist/lazyload.min.js"></script>
+
 <link rel="stylesheet" href="/stylesheets/main.css" />
 
 <div id="map" style="width: 100%; height: 500px">
@@ -24,14 +27,14 @@
         <a href="/birds/<%=bird._id%>">
           <% if (bird.images.length) { %>
           <img
-            src="<%= bird.images[0].url %> "
-            class="card-img-top rounded-circle circle-size img-fluid"
+            data-src="<%= bird.images[0].url %> "
+            class="card-img-top rounded-circle circle-size img-fluid lazy"
             alt="image of <%= bird.species %> "
           />
           <% } else { %>
           <img
-            class="card-img-top rounded-circle circle-size img-fluid"
-            src="https://res.cloudinary.com/dabgwgfzh/image/upload/v1609232539/BirdsOfNewZealand/lunxjy92s035iti1aurf.jpg"
+            class="card-img-top rounded-circle circle-size img-fluid lazy"
+            data-src="https://res.cloudinary.com/dabgwgfzh/image/upload/v1609232539/BirdsOfNewZealand/lunxjy92s035iti1aurf.jpg"
             alt="Temporary image"
           />
           <% } %>
@@ -55,3 +58,10 @@
 
   <script src="/javascripts/clusterMap.js"></script>
 </div>
+
+<!-- lazyload script -->
+<script>
+  var lazyLoadInstance = new LazyLoad({
+    // Your custom settings go here
+  });
+</script>

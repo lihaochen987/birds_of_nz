@@ -17,7 +17,7 @@ db.once("open", () => {
 
 const seedDB = async () => {
   await Bird.deleteMany({});
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < birdSeed.length; i++) {
     const bird = new Bird({
       location: `${birdSeed[i].location}`,
       species: `${birdSeed[i].species}`,
