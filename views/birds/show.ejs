@@ -13,7 +13,7 @@
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script>
 
 <% if (currentUser && !bird.likedBy.includes(currentUser._id)) { %>
-<form class="d-inline" action="/birds/<%=bird._id%>/upvote" method="POST">
+<form class="d-inline" action="/birds/<%=bird._id%>/upvotePost" method="POST">
   <button class="btn btn-success">Like</button>
 </form>
 <% } %> 
@@ -21,7 +21,7 @@
 <% if (currentUser && bird.likedBy.includes(currentUser._id) ) { %>
 <form
   class="d-inline"
-  action="/birds/<%=bird._id%>/upvote/unupvote"
+  action="/birds/<%=bird._id%>/upvotePost/unupvote"
   method="POST"
 >
   <button class="btn btn-success">Unlike</button>
@@ -108,11 +108,17 @@
         </div>
         <button class="btn btn-success">Submit</button>
       </form>
-      <% } %> <% for(let comment of bird.comments) { %>
+      <% } %> 
+
+      <% for(let comment of bird.comments) { %>
+        <%= comment %>
       <div class="card mb-3">
         <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">
+          <h6 class="card-subtitle mb-2">
             By <%= comment.author.username%>
+          </h6>
+          <h6>
+            Total likes: <%= comment.likeCount%>
           </h6>
           <p class="card-text"><%= comment.body %></p>
           <% if( currentUser && comment.author.equals(currentUser._id)) {%>
@@ -121,6 +127,16 @@
             method="POST"
           >
             <button class="btn btn-sm btn-danger">Delete</button>
+          </form>
+          <% } %> 
+          
+          <% if (currentUser) { %>
+          <form
+            class="d-inline"
+            action="/birds/<%=bird._id%>/comments/<%=comment._id%>/upvoteComment"
+            method="POST"
+          >
+            <button class="btn btn-sm btn-success">Like</button>
           </form>
           <% } %>
         </div>
