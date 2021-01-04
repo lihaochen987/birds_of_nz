@@ -80,7 +80,7 @@ app.use((req, res, next) => {
 app.use("/birds", birdRoutes);
 app.use("/birds/:id/comments", commentRoutes);
 app.use("/", userRoutes);
-app.use("/birds/:id/upvotePost", upvotePostRoutes);
+app.use("/birds/:id", upvotePostRoutes);
 app.use("/birds/:id/comments/:commentId", upvoteCommentRoutes);
 
 app.get("/", (req, res) => {

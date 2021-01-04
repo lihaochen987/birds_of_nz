@@ -64,8 +64,8 @@ module.exports.hasUpvotedPost = async (req, res, next) => {
 };
 
 module.exports.hasUpvotedComment = async (req, res, next) => {
+  const { commentId, id } = req.params;
   const comment = await Comment.findById(commentId);
-  console.log(comment);
   if (comment.likedBy.includes(req.user._id)) {
     req.flash("error", "You have already like this comment!");
     return res.redirect(`/birds/${id}`);

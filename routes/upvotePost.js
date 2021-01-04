@@ -9,7 +9,7 @@ const catchAsync = require("../utils/catchAsync");
 const { isLoggedIn, hasUpvotedPost } = require("../middleware");
 
 router.post(
-  "/",
+  "/upvotePost",
   isLoggedIn,
   hasUpvotedPost,
   catchAsync(async (req, res) => {
@@ -22,7 +22,7 @@ router.post(
 );
 
 router.post(
-  "/unupvote",
+  "/unupvotePost",
   isLoggedIn,
   catchAsync(async (req, res) => {
     const bird = await Bird.findById(req.params.id);
@@ -32,4 +32,5 @@ router.post(
     res.redirect(`/birds/${bird._id}`);
   })
 );
+
 module.exports = router;
