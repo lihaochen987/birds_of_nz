@@ -12,9 +12,19 @@
 <!-- Flickity JS -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script>
 
-<% if (currentUser) {%>
+<% if (currentUser && !bird.likedBy.includes(currentUser._id)) { %>
 <form class="d-inline" action="/birds/<%=bird._id%>/upvote" method="POST">
   <button class="btn btn-success">Like</button>
+</form>
+<% } %> 
+
+<% if (currentUser && bird.likedBy.includes(currentUser._id) ) { %>
+<form
+  class="d-inline"
+  action="/birds/<%=bird._id%>/upvote/unupvote"
+  method="POST"
+>
+  <button class="btn btn-success">Unlike</button>
 </form>
 <% } %>
 

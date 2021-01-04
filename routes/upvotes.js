@@ -21,4 +21,15 @@ router.post(
   })
 );
 
+router.post(
+  "/unupvote",
+  isLoggedIn,
+  catchAsync(async (req, res) => {
+    const bird = await Bird.findById(req.params.id);
+    bird.likedBy.remove(req.user._id);
+    bird.likeCount -= 1;
+    await bird.save();
+    res.redirect(`/birds/${bird._id}`);
+  })
+);
 module.exports = router;
