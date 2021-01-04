@@ -12,13 +12,11 @@
 <!-- Flickity JS -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script>
 
-<form
-  class="d-inline"
-  action="/birds/<%=bird._id%>/upvote"
-  method="POST"
->
+<% if (currentUser) {%>
+<form class="d-inline" action="/birds/<%=bird._id%>/upvote" method="POST">
   <button class="btn btn-success">Like</button>
 </form>
+<% } %>
 
 <section class="container-fluid">
   <div class="row align-items-center">
