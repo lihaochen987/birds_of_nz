@@ -12,6 +12,9 @@
 <!-- Flickity JS -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script>
 
+<!-- Like post -->
+<button class="btn btn-success">Like</button>
+
 <section class="container-fluid">
   <div class="row align-items-center">
     <!-- Information card, left side -->
@@ -19,9 +22,10 @@
       <div class="card" style="width: 18rem">
         <div class="card-body">
           <h5 class="card-title"><%= bird.species %></h5>
-          <h6 class="card-subtitle mb-2 text-muted">
+          <h6 class="card-subtitle mb-2">
             Submitted By <%= bird.author.username %>
           </h6>
+          <h6 class="card-subtitle mb-2">Total likes: <%= bird.likeCount %></h6>
           <p class="card-text"><%= bird.description %></p>
           <p class="card-subtitle mb-2 text-muted"><%= bird.location %></p>
 
