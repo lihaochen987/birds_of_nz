@@ -24,6 +24,7 @@ const BirdSchema = new Schema(
     species: String,
     description: String,
     location: String,
+    likes: { type: Number, default: 0 },
     images: [ImageSchema],
     geometry: {
       type: {
