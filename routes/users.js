@@ -6,6 +6,14 @@ const User = require("../models/user");
 const users = require("../controllers/users");
 const { reset } = require("nodemon");
 
+// Avatar TESTING STARTS
+router.get("/:userId/settings", async (req, res) => {
+  const user = await User.findById(req.params.id);
+  res.render("users/settings", { user });
+});
+
+//AVATAR TESTING ENDS
+
 router
   .route("/register")
   .get(users.renderRegister)
