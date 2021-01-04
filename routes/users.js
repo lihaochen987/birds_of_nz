@@ -6,14 +6,6 @@ const User = require("../models/user");
 const users = require("../controllers/users");
 const { reset } = require("nodemon");
 
-// Avatar TESTING STARTS
-router.get("/:userId/settings", async (req, res) => {
-  const user = await User.findById(req.params.id);
-  res.render("users/settings", { user });
-});
-
-//AVATAR TESTING ENDS
-
 router
   .route("/register")
   .get(users.renderRegister)
@@ -34,6 +26,22 @@ router
   );
 
 router.route("/forgot").get(users.renderForgot).post(users.sendResetToken);
+
+// SETTINGS TESTING STARTS
+router.get("/user/:userid/settings", async (req, res) => {
+  const user = await User.findById(req.params.id);
+  res.render("users/settings", { user });
+});
+
+// SETTINGS TESTING ENDS
+
+// DASHBOARD TESTING STARTS
+router.get("/user/:userid/dashboard", async (req, res) => {
+  const user = await User.findById(req.params.id);
+  res.render("users/dashboard", { user });
+});
+
+// DASHBOARD TESTING ENDS
 
 router
   .route("/reset/:token")
