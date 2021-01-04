@@ -81,8 +81,8 @@ module.exports.updatePost = async (req, res) => {
     .send();
   bird.geometry = geoData.body.features[0].geometry;
   await bird.save();
-  const formatDeleteRequest = req.body.deleteImages.map((s) => s.trim());
   if (req.body.deleteImages) {
+    const formatDeleteRequest = req.body.deleteImages.map((s) => s.trim());
     for (let filename of req.body.deleteImages) {
       await cloudinary.uploader.destroy(filename);
     }
