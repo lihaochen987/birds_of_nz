@@ -49,8 +49,18 @@
         <div class="carousel-cell">
           <img src="<%= img.carouselImage %>" alt="<%= bird.species %>" />
         </div>
-        <% }) %> <% } else { %>
-        <img class = "single-image" src="<%= bird.images[0].url %>" alt="<%= bird.species %>" />
+        <% }) %> <% } else if (bird.images.length === 1) { %>
+        <img
+          class="single-image"
+          src="<%= bird.images[0].url %>"
+          alt="<%= bird.species %>"
+        />
+        <% } else { %>
+        <img
+          class="single-image"
+          src="https://res.cloudinary.com/dabgwgfzh/image/upload/v1609232539/BirdsOfNewZealand/lunxjy92s035iti1aurf.jpg"
+          alt="<%= bird.species %>"
+        />
         <% } %>
       </div>
     </div>

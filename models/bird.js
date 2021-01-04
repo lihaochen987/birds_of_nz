@@ -51,14 +51,25 @@ const BirdSchema = new Schema(
 );
 
 BirdSchema.virtual("properties.popUpMarkup").get(function () {
-  return `
-<div class="card" style="width: 9rem;">
-  <img class="card-img-top" src="${this.images[0].url}" alt="image of ${this.species}">
-  <div class="card-body text-center">
-  <strong><a href="/birds/${this._id}">${this.species}</a><strong>
-  </div>
-</div>
-`;
+  if (this.images.length) {
+    return `
+    <div class="card" style="width: 9rem;">
+      <img class="card-img-top" src="${this.images[0].url}" alt="image of ${this.species}">
+      <div class="card-body text-center">
+      <strong><a href="/birds/${this._id}">${this.species}</a><strong>
+      </div>
+    </div>
+    `;
+  } else {
+    return `
+    <div class="card" style="width: 9rem;">
+      <img class="card-img-top" src="https://res.cloudinary.com/dabgwgfzh/image/upload/v1609232539/BirdsOfNewZealand/lunxjy92s035iti1aurf.jpg" alt="image of ${this.species}">
+      <div class="card-body text-center">
+      <strong><a href="/birds/${this._id}">${this.species}</a><strong>
+      </div>
+    </div>
+    `;
+  }
 });
 
 module.exports = mongoose.model("Bird", BirdSchema);
