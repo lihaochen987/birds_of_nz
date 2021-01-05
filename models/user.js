@@ -7,11 +7,14 @@ const AvatarSchema = new Schema({
   filename: String,
 });
 
+AvatarSchema.virtual("userAvatar").get(function () {
+  return this.url.replace("/upload", "/upload/w_200");
+});
+
 const UserSchema = new Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  avatar: [AvatarSchema],
-  password: String,
+  avatar: AvatarSchema,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 });

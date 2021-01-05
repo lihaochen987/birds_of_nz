@@ -1,0 +1,24 @@
+<% layout('layouts/boilerplate') %>
+
+<%= user %>
+
+<div class="mb-3">
+  <form
+    action=""
+    method="POST"
+    novalidate
+    class="validated-form"
+    enctype="multipart/form-data"
+  >
+    <div class="mb-3">
+      <label for="image" class="form-label">Add Image(s)...</label>
+      <input
+        class="form-control"
+        type="file"
+        name="image"
+        id="image"
+        multiple
+      />
+    </div>
+  </form>
+</div>

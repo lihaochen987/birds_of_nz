@@ -64,15 +64,14 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
-          My Profile
+        <%console.log(currentUser)%>
+        <img class = "img-fluid" src="<%= currentUser.avatar%>" alt="Image of your avatar">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="/user/<%= currentUser._id %>/dashboard">Dashboard</a>
           <a class="dropdown-item" href="/user/<%= currentUser._id%>/settings">Settings</a>
+          <a class="dropdown-item" href="/logout">Logout</a>
         </div>
-      </li>
-      <li class="navbar-item active">
-        <a class="nav-link" href="/logout">Logout</a>
       </li>
     </ul>
     <% } %>

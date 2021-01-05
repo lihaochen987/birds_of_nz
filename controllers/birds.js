@@ -31,7 +31,6 @@ module.exports.createPost = async (req, res) => {
   bird.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   bird.author = req.user._id;
   await bird.save();
-  console.log(bird);
   req.flash("success", "Successfully made a new post!");
   res.redirect(`birds/${bird._id}`);
 };
