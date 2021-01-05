@@ -62,10 +62,26 @@ router.post(
     const user = await User.findById(userid);
     user.avatar.url = req.file.path;
     await user.save();
-    req.flash("success", "Successfully updated your profile picture");
+    req.flash("success", "Successfully updated your profile picture!");
     res.redirect(`/user/${user._id}/settings/changepfp`);
   }
 );
+
+router.put("/user/:userid/settings/changepassword", async (req, res) => {
+  const user = await User.findById(req.params.userid);
+  if (req.body.newpassword === req.body.confirmpassword) {
+    user.changePassword(req.body.oldpassword, req.body.newpassword);
+    user.save();
+    req.flash("success", "Successfully changed your password!");
+    res.redirect("/birds");
+  } else {
+    req.flash(
+      "error",
+      "Either the old password is wrong or the new and confirm password do no match up!"
+    );
+    res.redirect(`/user/${user._id}/settings/changepassword`);
+  }
+});
 
 // SETTINGS TESTING ENDS
 
