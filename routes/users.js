@@ -60,10 +60,10 @@ router.post(
   async (req, res) => {
     const { userid } = req.params;
     const user = await User.findById(userid);
-    user.avatar = req.file.path;
+    user.avatar.url = req.file.path;
     await user.save();
     req.flash("success", "Successfully updated your profile picture");
-    res.redirect(`/user/${user._id}/dashboard/changepfp`);
+    res.redirect(`/user/${user._id}/settings/changepfp`);
   }
 );
 
