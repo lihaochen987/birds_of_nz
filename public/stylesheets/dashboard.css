@@ -1,0 +1,11 @@
+/* /dashboard */
+
+.test {
+    border: solid 1px red;
+}
+
+.profile-image{
+    border-radius:50%;
+    height: auto;
+    width: 100%;
+}

@@ -1,6 +1,40 @@
 <% layout('layouts/boilerplate') %>
 
-<h1>WELCOME TO YOUR DASHBOARD!</h1>
+<link rel="stylesheet" href="/stylesheets/dashboard.css" />
+
+<div class="container">
+  <div class="d-flex d-row">
+    <div class="col-2 test">
+      <img
+        class="img-fluid profile-image"
+        src="<%= user.avatar.url %>"
+        alt="Your profile picture!"
+      />
+    </div>
+    <div class="flex-fill test">
+      <div class="d-flex d-row test">
+        <h1><%= user.username%></h1>
+      </div>
+      <div class="d-flex d-row test">
+        <h2>Number of posts</h2>
+      </div>
+      <div class="d-flex d-row test">
+        <h2>Likes received</h2>
+      </div>
+    </div>
+
+    <div class="col-2 test">
+      <h1>Jello!</h1>
+    </div>
+  </div>
+
+  <div class="d-flex d-row test">
+    <div>
+      <h1>Post 1</h1>
+      <p>Hello Hello Hello</p>
+    </div>
+  </div>
+</div>
 
 <a href="/user/<%= currentUser._id%>/dashboard/changepfp"
   >Click here to change your profile picture</a
