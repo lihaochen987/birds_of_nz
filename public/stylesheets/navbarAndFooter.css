@@ -1,5 +1,16 @@
 /* partials/navbar */
 
+.dropdown-menu {
+  top: 100% !important;
+  left: -100% !important;
+}
+
+.avatar-button {
+  background-color: #a1b68b;
+  border: none;
+  border-radius: 10%;
+}
+
 .navbar {
   background-color: #6f8c5f;
   padding: 8px 8px 8px 8px !important;
@@ -23,6 +34,13 @@
 @media (min-width: 768px) {
   .user-links {
     display: flex !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .avatar-button {
+    width: 100%;
+    height: 100%;
   }
 }
 
