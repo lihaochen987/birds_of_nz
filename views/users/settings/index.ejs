@@ -1,0 +1,15 @@
+<% layout('layouts/boilerplate') %> <%= user %>
+
+<h1>Welcome to the settings page!</h1>
+
+<div class="mb-3">
+  <a href="/user/<%= currentUser._id%>/settings/changepfp"
+    >Click here to change your profile picture</a
+  >
+</div>
+
+<div class="mb-3">
+  <a href="/user/<%= currentUser._id%>/settings/changepassword"
+    >Click here to change your password</a
+  >
+</div>

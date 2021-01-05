@@ -34,30 +34,27 @@ router
 router.route("/forgot").get(users.renderForgot).post(users.sendResetToken);
 
 // SETTINGS TESTING STARTS
-router.get("/user/:userid/settings", async (req, res) => {
-  const user = await User.findById(req.params._id);
+router.get("/user/:userid/settings", isLoggedIn, async (req, res) => {
+  const user = await User.findById(req.params.userid);
   res.render("users/settings", { user });
 });
 
-// SETTINGS TESTING ENDS
-
-// DASHBOARD TESTING STARTS
-router.get("/user/:userid/dashboard", isLoggedIn, async (req, res) => {
-  const user = await User.findById(req.params.userid);
-  res.render("users/dashboard", { user });
-});
-
 router.get(
-  "/user/:userid/dashboard/changepfp",
+  "/user/:userid/settings/changepassword",
   isLoggedIn,
   async (req, res) => {
     const user = await User.findById(req.params.userid);
-    res.render("users/changePicture", { user });
+    res.render("users/settings/changePassword", { user });
   }
 );
 
+router.get("/user/:userid/settings/changepfp", isLoggedIn, async (req, res) => {
+  const user = await User.findById(req.params.userid);
+  res.render("users/settings/changeProfilePicture", { user });
+});
+
 router.post(
-  "/user/:userid/dashboard/changepfp",
+  "/user/:userid/settings/changepfp",
   isLoggedIn,
   upload.single("image"),
   async (req, res) => {
@@ -69,6 +66,14 @@ router.post(
     res.redirect(`/user/${user._id}/dashboard/changepfp`);
   }
 );
+
+// SETTINGS TESTING ENDS
+
+// DASHBOARD TESTING STARTS
+router.get("/user/:userid/dashboard", isLoggedIn, async (req, res) => {
+  const user = await User.findById(req.params.userid);
+  res.render("users/dashboard", { user });
+});
 
 // DASHBOARD TESTING ENDS
 
