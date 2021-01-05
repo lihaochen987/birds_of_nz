@@ -1,10 +1,10 @@
-<% layout('layouts/boilerplate') %>
+<% layout('layouts/boilerplate') %> 
 
 <%= user %>
 
 <div class="mb-3">
   <form
-    action=""
+    action="/user/<%=user._id%>/dashboard/changepfp"
     method="POST"
     novalidate
     class="validated-form"
@@ -17,8 +17,11 @@
         type="file"
         name="image"
         id="image"
-        multiple
+        required
       />
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-info">Update your profile picture</button>
     </div>
   </form>
 </div>

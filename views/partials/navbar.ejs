@@ -1,3 +1,6 @@
+<!-- Import lazyload -->
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.0/dist/lazyload.min.js"></script>
+
 <nav class="navbar sticky-top navbar-expand-md navbar-dark">
   <a class="navbar-brand" href="/">
     <img
@@ -24,10 +27,10 @@
   >
     <ul class="collapse navbar-collapse navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/birds">Birds</a>
+        <a class="nav-link nav-link-spacing" href="/birds">Birds</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/birds/new">Add a Bird</a>
+        <a class="nav-link nav-link-spacing" href="/birds/new">Add a Bird</a>
       </li>
     </ul>
 
@@ -37,20 +40,20 @@
   >
     <ul class="navbar-nav d-md-none">
       <li class="nav-item active">
-        <a class="nav-link" href="/birds">Birds</a>
+        <a class="nav-link nav-link-spacing" href="/birds">Birds</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/birds/new">Add a Bird</a>
+        <a class="nav-link nav-link-spacing" href="/birds/new">Add a Bird</a>
       </li>
     </ul>
 
     <% if (!currentUser) { %>
     <ul class="navbar-nav">
       <li class="navbar-item active">
-        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link nav-link-spacing" href="/login">Login</a>
       </li>
       <li class="navbar-item active">
-        <a class="nav-link" href="/register">Register</a>
+        <a class="nav-link nav-link-spacing" href="/register">Register</a>
       </li>
     </ul>
     <% } else { %>
@@ -64,8 +67,7 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
-        <%console.log(currentUser)%>
-        <img class = "img-fluid" src="<%= currentUser.avatar%>" alt="Image of your avatar">
+        <img class = "img-fluid avatar-image lazy" data-src="<%= currentUser.avatar.url%>" alt="Image of your avatar">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="/user/<%= currentUser._id %>/dashboard">Dashboard</a>
@@ -77,3 +79,10 @@
     <% } %>
   </div>
 </nav>
+
+<!-- lazyload script -->
+<script>
+  var lazyLoadInstance = new LazyLoad({
+    // Your custom settings go here
+  });
+</script>

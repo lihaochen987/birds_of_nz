@@ -15,8 +15,15 @@ module.exports.renderRegister = (req, res) => {
 
 module.exports.register = async (req, res, next) => {
   try {
+    console.log(req);
     const { email, username, password } = req.body;
-    const user = new User({ email, username, password });
+    const { path, filename } = req.file;
+    const user = new User({
+      email,
+      username,
+      password,
+      avatar: { url: path, filename: filename },
+    });
     const registeredUser = await User.register(user, password);
     req.login(registeredUser, (err) => {
       if (err) return next(err);
@@ -73,7 +80,6 @@ module.exports.sendResetToken = function (req, res, next) {
     },
     function (token, user, done) {
       const websiteLink = req.headers.host;
-      console.log(websiteLink);
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {

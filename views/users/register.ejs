@@ -12,6 +12,7 @@
             action="/register"
             method="POST"
             class="validated-form"
+            enctype="multipart/form-data"
             novalidate
           >
             <div class="mb-3">
@@ -24,7 +25,6 @@
                 required
                 autofocus
               />
-              <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="mb-3">
               <label class="form-label" for="email">Email</label>
@@ -35,7 +35,6 @@
                 name="email"
                 required
               />
-              <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="mb-3">
               <label class="form-label" for="password">Password</label>
@@ -46,14 +45,23 @@
                 name="password"
                 required
               />
-              <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="image" class="form-label">Add your profile picture</label>
+              <input
+                class="form-control"
+                type="file"
+                name="image"
+                id="image"
+                required
+              />
             </div>
             <div class="d-grid">
               <button class="btn btn-success btn-block">Register</button>
             </div>
           </form>
         </div>
-      </div>
       </div>
     </div>
   </div>
