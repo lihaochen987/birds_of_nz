@@ -14,6 +14,16 @@ AvatarSchema.virtual("userAvatar").get(function () {
 const UserSchema = new Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
+  userComments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
+  userPosts: {
+    type: Schema.Types.ObjectId,
+    ref: "Bird",
+  },
   avatar: AvatarSchema,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
