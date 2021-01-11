@@ -35,6 +35,7 @@ module.exports.createPost = async (req, res) => {
   await bird.save();
 
   user.recentActivity.unshift([
+    "Created a post!",
     bird._id,
     bird.species,
     bird.images[0].url,
@@ -78,6 +79,7 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updatePost = async (req, res) => {
   const { id } = req.params;
   const bird = await Bird.findByIdAndUpdate(id, { ...req.body.bird });
+  const user = await User.findById(req.user._id);
   const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   const location = req.body.bird.location;
   const species = req.body.bird.species;
@@ -101,12 +103,32 @@ module.exports.updatePost = async (req, res) => {
       $pull: { images: { filename: { $in: formatDeleteRequest } } },
     });
   }
+
+  user.recentActivity.unshift([
+    "Edited a post!",
+    bird._id,
+    bird.species,
+    bird.images[0].url,
+    req.body.bird.description,
+  ]);
+
+  await user.save();
+
   req.flash("success", "Successfully updated a post");
   res.redirect(`/birds/${bird._id}`);
 };
 
 module.exports.deletePost = async (req, res) => {
   const { id } = req.params;
+  const user = await User.findById(req.user._id);
+
+  for (i = user.recentActivity.length - 1; i >= 0; i--) {
+    if (user.recentActivity[i][1] == id) {
+      user.recentActivity.splice(i, 1);
+    }
+  }
+
+  await user.save();
   await Bird.findByIdAndDelete(id);
   req.flash("success", "Successfully deleted a post");
   res.redirect("/birds");

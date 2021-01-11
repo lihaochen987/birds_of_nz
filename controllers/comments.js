@@ -5,11 +5,8 @@ const User = require("../models/user");
 module.exports.createComment = async (req, res) => {
   const bird = await Bird.findById(req.params.id);
   const comment = new Comment(req.body.comment);
-  const user = await User.findById(req.user._id);
   comment.author = req.user._id;
   bird.comments.push(comment);
-  user.userComments.push(comment);
-  await user.save();
   await comment.save();
   await bird.save();
   req.flash("success", "Created new comment!");
