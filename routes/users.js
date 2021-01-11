@@ -66,7 +66,7 @@ router.post(
     user.avatar.url = req.file.path;
     await user.save();
     req.flash("success", "Successfully updated your profile picture!");
-    res.redirect(`/user/${user._id}/settings/changepfp`);
+    res.redirect(`/birds`);
   }
 );
 
