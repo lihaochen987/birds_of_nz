@@ -1,6 +1,7 @@
 const locations = require("../data/NZTowns");
 const birdData = require("../data/NZBirds");
 const Bird = require("../models/bird");
+const User = require("../models/user");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
@@ -26,11 +27,22 @@ module.exports.createPost = async (req, res) => {
     })
     .send();
   const bird = new Bird(req.body.bird);
+  const user = await User.findById(req.user._id);
   bird.species = req.body.bird.species;
   bird.geometry = geoData.body.features[0].geometry;
   bird.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   bird.author = req.user._id;
   await bird.save();
+
+  user.recentActivity.unshift([
+    bird._id,
+    bird.species,
+    bird.images[0].url,
+    req.body.bird.description,
+  ]);
+  user.postCount += 1;
+  await user.save();
+
   req.flash("success", "Successfully made a new post!");
   res.redirect(`birds/${bird._id}`);
 };

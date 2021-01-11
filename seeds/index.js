@@ -24,7 +24,7 @@ const seedDB = async () => {
       description: `${birdSeed[i].description}`,
       likeCount:`${birdSeed[i].likes}`,
       author: {
-        _id: "5ff3b76cc2517e1738ddf3ff",
+        _id: "5ffc7944e5847a24109246ba",
         email: "test@gmail.com",
         username: "test",
       },

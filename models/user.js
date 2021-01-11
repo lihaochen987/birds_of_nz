@@ -14,16 +14,9 @@ AvatarSchema.virtual("userAvatar").get(function () {
 const UserSchema = new Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  userComments: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Comment",
-    },
-  ],
-  userPosts: {
-    type: Schema.Types.ObjectId,
-    ref: "Bird",
-  },
+  recentActivity: [],
+  commentCount: { type: Number, default: 0 },
+  postCount: { type: Number, default: 0 },
   avatar: AvatarSchema,
   resetPasswordToken: String,
   resetPasswordExpires: Date,

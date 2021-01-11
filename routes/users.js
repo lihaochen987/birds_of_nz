@@ -8,9 +8,12 @@ const multer = require("multer");
 const { storage } = require("../cloudinary");
 const upload = multer({ storage });
 const { isLoggedIn, isAuthor } = require("../middleware");
+const Bird = require("../models/bird");
 const User = require("../models/user");
+const Comment = require("../models/comment");
 const users = require("../controllers/users");
 const { reset } = require("nodemon");
+var ObjectId = require("mongodb").ObjectID;
 
 router
   .route("/register")
@@ -86,8 +89,10 @@ router.put("/user/:userid/settings/changepassword", async (req, res) => {
 // SETTINGS TESTING ENDS
 
 // DASHBOARD TESTING STARTS
+
 router.get("/user/:userid/dashboard", isLoggedIn, async (req, res) => {
   const user = await User.findById(req.params.userid);
+  console.log(user);
   res.render("users/dashboard", { user });
 });
 
