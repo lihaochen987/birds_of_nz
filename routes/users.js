@@ -73,10 +73,18 @@ router.post(
 router.put("/user/:userid/settings/changepassword", async (req, res) => {
   const user = await User.findById(req.params.userid);
   if (req.body.newpassword === req.body.confirmpassword) {
-    user.changePassword(req.body.oldpassword, req.body.newpassword);
-    await user.save();
-    req.flash("success", "Successfully changed your password!");
-    res.redirect("/birds");
+    if (req.body.oldpassword === req.body.newpassword) {
+      user.changePassword(req.body.oldpassword, req.body.newpassword);
+      await user.save();
+      req.flash("success", "Successfully changed your password!");
+      res.redirect("/birds");
+    } else {
+      req.flash(
+        "error",
+        "Either the old password is wrong or the new and confirm password do not match up!"
+      );
+      res.redirect(`/user/${user._id}/settings/changepassword`);
+    }
   } else {
     req.flash(
       "error",
