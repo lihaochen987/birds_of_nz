@@ -186,3 +186,38 @@ module.exports.resetPassword = function (req, res) {
     }
   );
 };
+
+module.exports.renderChangePassword = async (req, res) => {
+  const user = await User.findById(req.params.userid);
+  res.render("users/settings/changePassword", { user });
+};
+
+module.exports.changePassword = async (req, res) => {
+  const user = await User.findById(req.params.userid);
+  if (req.body.newpassword === req.body.confirmpassword) {
+    user.changePassword(req.body.oldpassword, req.body.newpassword);
+    await user.save();
+    req.flash("success", "Successfully changed your password!");
+    res.redirect("/birds");
+  } else {
+    req.flash(
+      "error",
+      "Either the old password is wrong or the new and confirm password do not match up!"
+    );
+    res.redirect(`/user/${user._id}/settings/changepassword`);
+  }
+};
+
+module.exports.renderChangeProfilePicture = async (req, res) => {
+  const user = await User.findById(req.params.userid);
+  res.render("users/settings/changeProfilePicture", { user });
+};
+
+module.exports.changeProfilePicture = async (req, res) => {
+  const { userid } = req.params;
+  const user = await User.findById(userid);
+  user.avatar.url = req.file.path;
+  await user.save();
+  req.flash("success", "Successfully updated your profile picture!");
+  res.redirect(`/birds`);
+};

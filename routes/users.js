@@ -36,75 +36,26 @@ router
 
 router.route("/forgot").get(users.renderForgot).post(users.sendResetToken);
 
-// SETTINGS TESTING STARTS
 router.get("/user/:userid/settings", isLoggedIn, async (req, res) => {
   const user = await User.findById(req.params.userid);
   res.render("users/settings", { user });
 });
 
-router.get(
-  "/user/:userid/settings/changepassword",
-  isLoggedIn,
-  async (req, res) => {
-    const user = await User.findById(req.params.userid);
-    res.render("users/settings/changePassword", { user });
-  }
-);
+router
+  .route("/user/:userid/settings/changepassword")
+  .get(isLoggedIn, users.renderChangePassword)
+  .put(users.changePassword);
 
-router.get("/user/:userid/settings/changepfp", isLoggedIn, async (req, res) => {
-  const user = await User.findById(req.params.userid);
-  res.render("users/settings/changeProfilePicture", { user });
-});
-
-router.post(
-  "/user/:userid/settings/changepfp",
-  isLoggedIn,
-  upload.single("image"),
-  async (req, res) => {
-    const { userid } = req.params;
-    const user = await User.findById(userid);
-    user.avatar.url = req.file.path;
-    await user.save();
-    req.flash("success", "Successfully updated your profile picture!");
-    res.redirect(`/birds`);
-  }
-);
-
-router.put("/user/:userid/settings/changepassword", async (req, res) => {
-  const user = await User.findById(req.params.userid);
-  if (req.body.newpassword === req.body.confirmpassword) {
-    if (req.body.oldpassword === req.body.newpassword) {
-      user.changePassword(req.body.oldpassword, req.body.newpassword);
-      await user.save();
-      req.flash("success", "Successfully changed your password!");
-      res.redirect("/birds");
-    } else {
-      req.flash(
-        "error",
-        "Either the old password is wrong or the new and confirm password do not match up!"
-      );
-      res.redirect(`/user/${user._id}/settings/changepassword`);
-    }
-  } else {
-    req.flash(
-      "error",
-      "Either the old password is wrong or the new and confirm password do not match up!"
-    );
-    res.redirect(`/user/${user._id}/settings/changepassword`);
-  }
-});
-
-// SETTINGS TESTING ENDS
-
-// DASHBOARD TESTING STARTS
+router
+  .route("/user/:userid/settings/changepfp")
+  .get(isLoggedIn, users.renderChangeProfilePicture)
+  .post(isLoggedIn, upload.single("image"), users.changeProfilePicture);
 
 router.get("/user/:userid/dashboard", isLoggedIn, async (req, res) => {
   const user = await User.findById(req.params.userid);
   console.log(user);
   res.render("users/dashboard", { user });
 });
-
-// DASHBOARD TESTING ENDS
 
 router
   .route("/reset/:token")
