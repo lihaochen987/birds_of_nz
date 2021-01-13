@@ -1,9 +1,9 @@
-<% layout('layouts/boilerplate') %> <%= user %>
+<% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/dashboard.css" />
 
-<div class="container">
+<div class="container mb-5">
   <div class="d-flex d-row">
-    <div class="col-2 test">
+    <div class="col-4 test">
       <img
         class="img-fluid profile-image"
         src="<%= user.avatar.url %>"
@@ -24,10 +24,6 @@
         <h2>Likes received:</h2>
       </div>
     </div>
-
-    <div class="col-2 test">
-      <h1>About me:</h1>
-    </div>
   </div>
 
   <div class="d-flex d-row test">
@@ -35,12 +31,22 @@
       <h1>Recent Activity:</h1>
     </div>
   </div>
-</div>
 
-<% for (let activity in user.recentActivity) { %>
-<div class="d-flex d-row test">
-  <div>
-    <p><%= user.recentActivity[activity] %></p>
+  <% for (let activity in user.recentActivity) { %>
+  <div class="d-flex d-row test">
+    <div>
+      <div class="card" style="width: 18rem">
+        <img src="<%= user.recentActivity[activity][3] %>" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title"><%= user.recentActivity[activity][0]%></h5>
+          <p class="card-text">
+            <%= user.recentActivity[activity][4] %>
+          </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      <p><%= user.recentActivity %></p>
+    </div>
   </div>
+  <% } %>
 </div>
-<% } %>
