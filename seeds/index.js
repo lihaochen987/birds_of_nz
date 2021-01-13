@@ -22,9 +22,9 @@ const seedDB = async () => {
       location: `${birdSeed[i].location}`,
       species: `${birdSeed[i].species}`,
       description: `${birdSeed[i].description}`,
-      likeCount:`${birdSeed[i].likes}`,
+      likeCount: `${birdSeed[i].likes}`,
       author: {
-        _id: "5ffc7944e5847a24109246ba",
+        _id: "5fff1f1f1a769f3a5c380b43",
         email: "test@gmail.com",
         username: "test",
       },

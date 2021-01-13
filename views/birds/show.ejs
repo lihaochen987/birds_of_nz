@@ -55,7 +55,7 @@
     <!-- Image, right side -->
     <div class="col-lg-8">
       <% if (bird.images.length > 1) { %>
-      <div class="main-carousel" data-flickity='{ "wrapAround": true }'>
+      <div class="main-carousel" data-flickity='{ "wrapAround": true , "autoPlay": true }'>
         <% bird.images.forEach((img) => { %>
         <div class="carousel-cell">
           <img src="<%= img.carouselImage %>" alt="<%= bird.species %>" />
