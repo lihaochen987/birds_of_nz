@@ -31,7 +31,7 @@
         <a href="/birds/<%=bird._id%>">
           <% if (bird.images.length) { %>
           <img
-            data-src="<%= bird.images[0].url %>"
+            data-src="<%= bird.images[0].indexImage %>"
             class="card-img-top rounded-circle circle-size img-fluid lazy"
             alt="image of <%= bird.species %> "
           />

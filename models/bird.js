@@ -15,6 +15,10 @@ ImageSchema.virtual("carouselImage").get(function () {
   return this.url.replace("/upload", "/upload/c_scale,h_450");
 });
 
+ImageSchema.virtual("indexImage").get(function () {
+  return this.url.replace("/upload", "/upload/c_scale,h_250");
+});
+
 const opts = { toJSON: { virtuals: true } };
 
 const BirdSchema = new Schema(
