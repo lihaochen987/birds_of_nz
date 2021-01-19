@@ -9,6 +9,13 @@ const bodyParser = require("body-parser");
 const passwordResetEmailHtml = require("../public/nodemailer/nodemailerForgot");
 const passwordResetConfirmationEmailHtml = require("../public/nodemailer/nodemailerReset");
 
+// Testing NSFWJS
+const tf = require("@tensorflow/tfjs");
+const nsfwjs = require("nsfwjs");
+const model = nsfwjs.load("../public/nsfwjsmodels/model");
+const jpeg = require("jpeg-js");
+const imageConversion = require("image-conversion");
+
 module.exports.renderRegister = (req, res) => {
   res.render("users/register");
 };
@@ -217,7 +224,14 @@ module.exports.changeProfilePicture = async (req, res) => {
   const { userid } = req.params;
   const user = await User.findById(userid);
   user.avatar.url = req.file.path;
-  await user.save();
+
+  console.log(user.avatar.url);
+
+  // const model = await nsfwjs.load();
+  // const prediction = await model.classify(image);
+  // console.log("Predictions: ", predictions);
+
+  // await user.save();
   req.flash("success", "Successfully updated your profile picture!");
   res.redirect(`/birds`);
 };
