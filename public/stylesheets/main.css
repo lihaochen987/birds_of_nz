@@ -37,8 +37,32 @@ textarea {
   height: 200px;
 }
 
-@media screen and ( min-width: 768px ) {
+@media screen and (min-width: 768px) {
   .single-image {
     height: 400px;
+  }
+}
+
+.show-title {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 2em;
+  color: #a1b68b;
+}
+
+.container-1 {
+  /* display:flex; */
+}
+
+.box-1-1 {
+  flex: 1;
+}
+
+.box-1-2 {
+  flex: 2;
+}
+
+@media (min-width: 1024px){
+  .container-1{
+    display:flex;
   }
 }

@@ -3,6 +3,9 @@
 <link rel="stylesheet" href="/stylesheets/main.css" />
 <link rel="stylesheet" href="/stylesheets/flickity.css" />
 
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@900&display=swap" rel="stylesheet">
+
 <!-- Flickity CSS -->
 <link
   rel="stylesheet"
@@ -12,34 +15,30 @@
 <!-- Flickity JS -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script>
 
-<% if (currentUser && !bird.likedBy.includes(currentUser._id)) { %>
-<form class="d-inline" action="/birds/<%=bird._id%>/upvotePost" method="POST">
-  <button class="btn btn-success">Like</button>
-</form>
-<% } %> <% if (currentUser && bird.likedBy.includes(currentUser._id) ) { %>
-<form class="d-inline" action="/birds/<%=bird._id%>/unupvotePost" method="POST">
-  <button class="btn btn-success">Unlike</button>
-</form>
-<% } %>
+<section class ="container-1">
 
-<section class="container-fluid">
-  <div class="row align-items-center">
-    <!-- Information card, left side -->
-    <div class="col-lg-4 px-0 text-center d-lg-block">
-      <div class="card" style="width: 18rem">
+    <div class = "box-1-1 card">
+      
+      <!-- Section left, card information -->
+
         <div class="card-body">
-          <h5 class="card-title"><%= bird.species %></h5>
-          <h6 class="card-subtitle mb-2">
-            Submitted By <%= bird.author.username %>
+          <h5 class="show-title mb-0"><%= bird.species %></h5>
+          <p class="card-subtitle mt-1 ms-2 text-muted"><%= bird.location %></p>
+          <h6 class="card-subtitle mt-1 mb-3 ms-2">
+            Submitted by <%= bird.author.username %>
           </h6>
-          <h6 class="card-subtitle mb-2">Total likes: <%= bird.likeCount %></h6>
-          <p class="card-text"><%= bird.description %></p>
-          <p class="card-subtitle mb-2 text-muted"><%= bird.location %></p>
+          <p class="card-text ms-2"><%= bird.description %></p>
+          <h6 class="card-subtitle mb-2 ms-2 mt-4">Total likes: <%= bird.likeCount %></h6>
 
-          <% if (currentUser && bird.author.equals(currentUser._id)) { %>
-          <a class="card-link btn btn-info" href="/birds/<%=bird._id%>/edit"
-            >Edit</a
-          >
+        </div>
+
+        <span class = "mb-2">
+        <% if (currentUser && bird.author.equals(currentUser._id)) { %>
+
+          <form class="d-inline" action="/birds/<%=bird._id%>/edit" method="PUT">
+            <button class="btn btn-info">Edit</button>
+          </form>
+
           <form
             class="d-inline"
             action="/birds/<%=bird._id%>?_method=DELETE"
@@ -48,34 +47,51 @@
             <button class="btn btn-danger">Delete</button>
           </form>
           <% } %>
-        </div>
-      </div>
+
+          <% if (currentUser && !bird.likedBy.includes(currentUser._id)) { %>
+            <form class="d-inline" action="/birds/<%=bird._id%>/upvotePost" method="POST">
+              <button class="btn btn-success">Like</button>
+            </form>
+            <% } %> <% if (currentUser && bird.likedBy.includes(currentUser._id) ) { %>
+            <form class="d-inline" action="/birds/<%=bird._id%>/unupvotePost" method="POST">
+              <button class="btn btn-success">Unlike</button>
+            </form>
+            <% } %>
+          </span>
+
     </div>
 
-    <!-- Image, right side -->
-    <div class="col-lg-8">
+    <div class = "box-1-2">
+
+      <!-- Section right, carousel -->
+
       <% if (bird.images.length > 1) { %>
-      <div class="main-carousel" data-flickity='{ "wrapAround": true , "autoPlay": true }'>
-        <% bird.images.forEach((img) => { %>
-        <div class="carousel-cell">
-          <img src="<%= img.carouselImage %>" alt="<%= bird.species %>" />
+        <div class="main-carousel" data-flickity='{ "wrapAround": true , "autoPlay": true }'>
+          <% bird.images.forEach((img) => { %>
+          <div class="carousel-cell">
+            <img src="<%= img.carouselImage %>" alt="<%= bird.species %>" />
+          </div>
+          <% }) %> 
+          
+          <% } else if (bird.images.length === 1) { %>
+          <img
+            class="single-image mx-0"
+            src="<%= bird.images[0].url %>"
+            alt="<%= bird.species %>"
+          />
+
+          <% } else { %>
+          <img
+            class="single-image"
+            src="https://res.cloudinary.com/dabgwgfzh/image/upload/v1609232539/BirdsOfNewZealand/lunxjy92s035iti1aurf.jpg"
+            alt="<%= bird.species %>"
+          />
+          <% } %>
         </div>
-        <% }) %> <% } else if (bird.images.length === 1) { %>
-        <img
-          class="single-image"
-          src="<%= bird.images[0].url %>"
-          alt="<%= bird.species %>"
-        />
-        <% } else { %>
-        <img
-          class="single-image"
-          src="https://res.cloudinary.com/dabgwgfzh/image/upload/v1609232539/BirdsOfNewZealand/lunxjy92s035iti1aurf.jpg"
-          alt="<%= bird.species %>"
-        />
-        <% } %>
-      </div>
-    </div>
+
   </div>
+
+</section>
 
   <!-- Create a comment -->
   <div class="row align-items-center">
