@@ -9,13 +9,6 @@ const bodyParser = require("body-parser");
 const passwordResetEmailHtml = require("../public/nodemailer/nodemailerForgot");
 const passwordResetConfirmationEmailHtml = require("../public/nodemailer/nodemailerReset");
 
-// Testing NSFWJS
-const tf = require("@tensorflow/tfjs");
-const nsfwjs = require("nsfwjs");
-const model = nsfwjs.load("../public/nsfwjsmodels/model");
-const jpeg = require("jpeg-js");
-const imageConversion = require("image-conversion");
-
 module.exports.renderRegister = (req, res) => {
   res.render("users/register");
 };
