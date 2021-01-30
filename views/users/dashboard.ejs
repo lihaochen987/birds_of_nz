@@ -3,49 +3,59 @@
 
 <div class="container mb-5">
   <div class="d-flex d-row">
-    <div class="col-4 test">
+    <div class="col-md-4">
       <img
-        class="img-fluid profile-image"
+        class="img-fluid"
         src="<%= user.avatar.url %>"
         alt="Your profile picture!"
       />
     </div>
-    <div class="flex-fill test">
-      <div class="d-flex d-row test">
+    <div class="flex-fill">
+      <div class="d-flex d-row">
         <h1><%= user.username%></h1>
       </div>
-      <div class="d-flex d-row test">
-        <h2>Number of posts: <%=user.postCount %></h2>
+      <div class="d-flex d-row">
+        <h2>Total posts: <%=user.postCount %></h2>
       </div>
-      <div class="d-flex d-row test">
+      <div class="d-flex d-row">
         <h2>Total comments: <%= user.commentCount %></h2>
-      </div>
-      <div class="d-flex d-row test">
-        <h2>Likes received:</h2>
       </div>
     </div>
   </div>
 
-  <div class="d-flex d-row test">
+  <div class="d-flex d-row justify-content-center">
     <div>
       <h1>Recent Activity:</h1>
     </div>
   </div>
 
   <% for (let activity in user.recentActivity) { %>
-  <div class="d-flex d-row test">
-    <div>
-      <div class="card" style="width: 18rem">
-        <img src="<%= user.recentActivity[activity][3] %>" class="card-img-top" />
-        <div class="card-body">
-          <h5 class="card-title"><%= user.recentActivity[activity][0]%></h5>
-          <p class="card-text">
-            <%= user.recentActivity[activity][4] %>
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-      <p><%= user.recentActivity %></p>
+  <div class="d-flex d-row">
+    <div class="col-md-3">
+      <img
+        src="<%= user.recentActivity[activity][3] %>"
+        class="img-fluid d-none d-md-block"
+      />
+    </div>
+
+    <div class="card-body col">
+      <h5 class="card-title"><%= user.recentActivity[activity][0]%></h5>
+      <p class="card-text"><%= user.recentActivity[activity][4] %></p>
+
+      <% if (user.recentActivity[activity][0] == "Created a post!") {%>
+      <a
+        href="/birds/<%=user.recentActivity[activity][1]%>"
+        class="btn btn-primary"
+      >
+        View post</a
+      >
+      <% } else { %>
+      <a
+        href="/birds/<%=user.recentActivity[activity][1]%>"
+        class="btn btn-primary"
+        >View comment</a
+      >
+      <% } %>
     </div>
   </div>
   <% } %>

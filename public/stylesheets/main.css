@@ -66,3 +66,9 @@ textarea {
     display:flex;
   }
 }
+
+.dashboard-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

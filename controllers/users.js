@@ -217,14 +217,7 @@ module.exports.changeProfilePicture = async (req, res) => {
   const { userid } = req.params;
   const user = await User.findById(userid);
   user.avatar.url = req.file.path;
-
-  console.log(user.avatar.url);
-
-  // const model = await nsfwjs.load();
-  // const prediction = await model.classify(image);
-  // console.log("Predictions: ", predictions);
-
-  // await user.save();
+  await user.save();
   req.flash("success", "Successfully updated your profile picture!");
   res.redirect(`/birds`);
 };
