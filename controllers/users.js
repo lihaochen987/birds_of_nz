@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const flash = require("express-flash");
 const bodyParser = require("body-parser");
+const sightengine = require("sightengine")("331402922", "Asf8Hmru43nDwvZDwPFS");
 
 const passwordResetEmailHtml = require("../public/nodemailer/nodemailerForgot");
 const passwordResetConfirmationEmailHtml = require("../public/nodemailer/nodemailerReset");
@@ -217,6 +218,15 @@ module.exports.changeProfilePicture = async (req, res) => {
   const { userid } = req.params;
   const user = await User.findById(userid);
   user.avatar.url = req.file.path;
+  sightengine
+    .check(["nudity", "offensive", "wad"])
+    .set_url(req.file.path)
+    .then(function (result) {
+      // The API response (result)
+    })
+    .catch(function (err) {
+      // Handle error
+    });
   await user.save();
   req.flash("success", "Successfully updated your profile picture!");
   res.redirect(`/birds`);
