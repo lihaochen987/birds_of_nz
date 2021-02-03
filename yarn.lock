@@ -1020,6 +1020,11 @@ eventemitter3@^3.1.0:
   dependencies:
     connect-flash "0.1.x"
 
+express-mongo-sanitize@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/express-mongo-sanitize/-/express-mongo-sanitize-2.0.2.tgz#72560ce453a2738d5c8301f48c4dd0965f76d6ab"
+  integrity sha512-JKdeb6EBW++5Uo4F5Ed66p3FSjqNfqc65WrO2H6iWJjyI+IYb4pWq6HjFho/8p95t7ccjr9aBz8QQszeLM/bcQ==
+
 express-session@^1.17.1:
   version "1.17.1"
   resolved "https://registry.yarnpkg.com/express-session/-/express-session-1.17.1.tgz#36ecbc7034566d38c8509885c044d461c11bf357"
@@ -1427,6 +1432,11 @@ has@^1.0.3:
   integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
   dependencies:
     function-bind "^1.1.1"
+
+helmet@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/helmet/-/helmet-4.4.1.tgz#a17e1444d81d7a83ddc6e6f9bc6e2055b994efe7"
+  integrity sha512-G8tp0wUMI7i8wkMk2xLcEvESg5PiCitFMYgGRc/PwULB0RVhTP5GFdxOwvJwp9XVha8CuS8mnhmE8I/8dx/pbw==
 
 hosted-git-info@^2.1.4:
   version "2.8.8"

@@ -3,7 +3,6 @@ const ExpressError = require("./utils/ExpressError");
 const Bird = require("./models/bird");
 const Comment = require("./models/comment");
 
-// Not 100% sure what this does
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
     req.session.returnTo = req.originalUrl;
