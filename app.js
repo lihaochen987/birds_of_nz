@@ -82,6 +82,7 @@ const scriptSrcUrls = [
   "https://cdn.jsdelivr.net",
   "https://code.jquery.com/jquery-3.5.1.min.js",
   "https://unpkg.com/aos@2.3.1/dist/aos.js",
+  "https://unpkg.com/flickity@2/dist/flickity.pkgd.js",
 ];
 const styleSrcUrls = [
   "https://kit-free.fontawesome.com/",
@@ -93,6 +94,7 @@ const styleSrcUrls = [
   "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css",
   "https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css",
   "https://unpkg.com/aos@2.3.1/dist/aos.css",
+  "https://unpkg.com/flickity@2/dist/flickity.min.css",
 ];
 const connectSrcUrls = [
   "https://api.mapbox.com/",
@@ -101,13 +103,19 @@ const connectSrcUrls = [
   "https://events.mapbox.com/",
 ];
 const fontSrcUrls = [
-  "https://fonts.gstatic.com/s/andikanewbasic/v2/taiRGn9tCp-44eleq5Q-mszJivxSeKaeEVKD.woff2",
+  "https://fonts.gstatic.com",
+  "https://fonts.gstatic.com/s/sourcesanspro/v14/6xKydSBYKcSV-LCoeQqfX1RYOo3iu4nwmRduz8A.woff2",
+];
+
+const manifestUrls = [
+  // CHANGE THIS LINK WHEN IN PRODUCTION!!!
+  "http://localhost:5000/favicon_io/site.webmanifest",
 ];
 
 app.use(
   helmet.contentSecurityPolicy({
       directives: {
-          defaultSrc: [],
+          defaultSrc: [...manifestUrls],
           connectSrc: ["'self'", ...connectSrcUrls],
           scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
           styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
