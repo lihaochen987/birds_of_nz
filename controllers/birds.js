@@ -7,6 +7,7 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { response } = require("express");
 const { cloudinary } = require("../cloudinary");
+const axios = require("axios");
 
 module.exports.index = async (req, res) => {
   const birds = await Bird.find({}).populate("popupText");
@@ -31,21 +32,49 @@ module.exports.createPost = async (req, res) => {
   bird.species = req.body.bird.species;
   bird.geometry = geoData.body.features[0].geometry;
   bird.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
-  bird.author = req.user._id;
-  await bird.save();
 
-  user.recentActivity.unshift([
-    "Created a post!",
-    bird._id,
-    bird.species,
-    bird.images[0].url,
-    req.body.bird.description,
-  ]);
-  user.postCount += 1;
-  await user.save();
+  for (let images in bird.images) {
+    axios
+      .get("https://api.sightengine.com/1.0/check-workflow.json", {
+        params: {
+          url: bird.images[images].url,
+          workflow: process.env.SIGHTENGINE_WORKFLOW,
+          api_user: process.env.SIGHTENGINE_USER,
+          api_secret: process.env.SIGHTENGINE_SECRET,
+        },
+      })
+      .then(function (response) {
+        console.log(response.data);
+        if (response.data.summary.action == "accept") {
+          bird.author = req.user._id;
+          bird.save();
 
-  req.flash("success", "Successfully made a new post!");
-  res.redirect(`birds/${bird._id}`);
+          user.recentActivity.unshift([
+            "Created a post!",
+            bird._id,
+            bird.species,
+            bird.images[0].url,
+            req.body.bird.description,
+          ]);
+          user.postCount += 1;
+          user.save();
+
+          req.flash("success", "Successfully made a new post!");
+          res.redirect(`birds/${bird._id}`);
+        } else {
+          req.flash(
+            "error",
+            "Inappropriate image(s), please insert a more appropriate one / more appropriate ones!"
+          );
+          res.redirect(`/birds`);
+        }
+      })
+      .catch(function (error) {
+        // handle error
+        if (error.response) console.log(error.response.data);
+        else console.log(error.message);
+      });
+  }
 };
 
 module.exports.showPost = async (req, res) => {

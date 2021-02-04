@@ -6,6 +6,7 @@ const nodemailer = require("nodemailer");
 const flash = require("express-flash");
 const bodyParser = require("body-parser");
 const sightengine = require("sightengine")("331402922", "Asf8Hmru43nDwvZDwPFS");
+const axios = require("axios");
 
 const passwordResetEmailHtml = require("../public/nodemailer/nodemailerForgot");
 const passwordResetConfirmationEmailHtml = require("../public/nodemailer/nodemailerReset");
@@ -218,16 +219,32 @@ module.exports.changeProfilePicture = async (req, res) => {
   const { userid } = req.params;
   const user = await User.findById(userid);
   user.avatar.url = req.file.path;
-  sightengine
-    .check(["nudity", "offensive", "wad"])
-    .set_url(req.file.path)
-    .then(function (result) {
-      // The API response (result)
+  axios
+    .get("https://api.sightengine.com/1.0/check-workflow.json", {
+      params: {
+        url: req.file.path,
+        workflow: process.env.SIGHTENGINE_WORKFLOW,
+        api_user: process.env.SIGHTENGINE_USER,
+        api_secret: process.env.SIGHTENGINE_SECRET,
+      },
     })
-    .catch(function (err) {
-      // Handle error
+    .then(function (response) {
+      console.log(response.data);
+      if (response.data.summary.action == "accept") {
+        user.save();
+        req.flash("success", "Successfully updated your profile picture!");
+        res.redirect(`/birds`);
+      } else {
+        req.flash(
+          "error",
+          "Inappropriate image, please insert a more appropriate one!"
+        );
+        res.redirect(`/birds`);
+      }
+    })
+    .catch(function (error) {
+      // handle error
+      if (error.response) console.log(error.response.data);
+      else console.log(error.message);
     });
-  await user.save();
-  req.flash("success", "Successfully updated your profile picture!");
-  res.redirect(`/birds`);
 };
