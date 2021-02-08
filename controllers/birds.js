@@ -73,6 +73,7 @@ module.exports.createPost = async (req, res) => {
             "Inappropriate image(s), please insert a more appropriate one / more appropriate ones!"
           );
           res.redirect(`/birds`);
+          
         }
       })
       .catch(function (error) {
