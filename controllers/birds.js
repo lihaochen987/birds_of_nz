@@ -31,6 +31,12 @@ module.exports.createPost = async (req, res) => {
   const user = await User.findById(req.user._id);
   bird.species = req.body.bird.species;
   bird.geometry = geoData.body.features[0].geometry;
+  
+  if (req.files.length > 5) {
+    req.flash("error", "Too many images, please upload less than five!");
+    res.redirect(`/birds`);
+  }
+
   bird.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
 
   for (let images in bird.images) {
