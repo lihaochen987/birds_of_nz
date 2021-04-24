@@ -31,56 +31,63 @@ module.exports.createPost = async (req, res) => {
   const user = await User.findById(req.user._id);
   bird.species = req.body.bird.species;
   bird.geometry = geoData.body.features[0].geometry;
-  
+
   if (req.files.length > 5) {
     req.flash("error", "Too many images, please upload less than five!");
     res.redirect(`/birds`);
   }
 
-  bird.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
+  const imageList = req.files.map((f) => ({
+    url: f.path,
+    filename: f.filename,
+  }));
 
-  for (let images in bird.images) {
-    axios
-      .get("https://api.sightengine.com/1.0/check-workflow.json", {
-        params: {
-          url: bird.images[images].url,
-          workflow: process.env.SIGHTENGINE_WORKFLOW,
-          api_user: process.env.SIGHTENGINE_USER,
-          api_secret: process.env.SIGHTENGINE_SECRET,
-        },
-      })
-      .then(function (response) {
-        console.log(response.data);
-        if (response.data.summary.action == "accept") {
-          bird.author = req.user._id;
-          bird.save();
+  function getStatus(image, imageList) {
+    return axios.get("https://api.sightengine.com/1.0/check-workflow.json", {
+      params: {
+        url: imageList[image].url,
+        workflow: process.env.SIGHTENGINE_WORKFLOW,
+        api_user: process.env.SIGHTENGINE_USER,
+        api_secret: process.env.SIGHTENGINE_SECRET,
+      },
+    });
+  }
 
-          user.recentActivity.unshift([
-            "Created a post!",
-            bird._id,
-            bird.species,
-            bird.images[0].url,
-            req.body.bird.description,
-          ]);
-          user.postCount += 1;
-          user.save();
+  async function getStatusList(imageList) {
+    tempList = [];
+    for (image in imageList) {
+      const status = await getStatus(image, imageList);
+      tempList.push(status.data.summary.action);
+    }
+    return tempList;
+  }
 
-          req.flash("success", "Successfully made a new post!");
-          res.redirect(`birds/${bird._id}`);
-        } else {
-          req.flash(
-            "error",
-            "Inappropriate image(s), please insert a more appropriate one / more appropriate ones!"
-          );
-          res.redirect(`/birds`);
-          
-        }
-      })
-      .catch(function (error) {
-        // handle error
-        if (error.response) console.log(error.response.data);
-        else console.log(error.message);
-      });
+  const statusList = await getStatusList(imageList);
+  console.log(statusList);
+
+  if (statusList.indexOf("reject") > -1) {
+    req.flash(
+      "error",
+      "Inappropriate image(s), please insert a more appropriate one / more appropriate ones!"
+    );
+    res.redirect(`/birds`);
+  } else {
+    bird.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
+    bird.author = req.user._id;
+    bird.save();
+
+    user.recentActivity.unshift([
+      "Created a post!",
+      bird._id,
+      bird.species,
+      bird.images[0].url,
+      req.body.bird.description,
+    ]);
+    user.postCount += 1;
+    user.save();
+
+    req.flash("success", "Successfully made a new post!");
+    res.redirect(`birds/${bird._id}`);
   }
 };
 
