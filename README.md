@@ -35,7 +35,7 @@ Multiple features added to help with loading pictures faster and displaying imag
 
 ### User dashboard which shows recent user activities
 
-## Other features I've probably neglected to mention :)
+### Other features I've probably neglected to mention :)
 
 ## Improvements
 User dashboard activities (recent posts, recent comments) are recorded by shoving everything into a really big list. VERY VERY inefficient, definitely need something better for scaling.
