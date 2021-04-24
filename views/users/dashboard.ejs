@@ -41,21 +41,12 @@
     <div class="card-body col">
       <h5 class="card-title"><%= user.recentActivity[activity][0]%></h5>
       <p class="card-text"><%= user.recentActivity[activity][4] %></p>
-
-      <% if (user.recentActivity[activity][0] == "Created a post!") {%>
       <a
         href="/birds/<%=user.recentActivity[activity][1]%>"
         class="btn btn-primary"
       >
         View post</a
       >
-      <% } else { %>
-      <a
-        href="/birds/<%=user.recentActivity[activity][1]%>"
-        class="btn btn-primary"
-        >View comment</a
-      >
-      <% } %>
     </div>
   </div>
   <% } %>
